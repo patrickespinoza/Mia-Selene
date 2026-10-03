@@ -3,13 +3,30 @@
 import { motion } from "framer-motion";
 
 /* =====================================================
-   ANIMACIÓN GENERAL
+   INFORMACIÓN DEL EVENTO
+===================================================== */
+
+const DATOS_EVENTO = {
+  diaSemana: "Viernes",
+  dia: "30",
+  mes: "Octubre",
+  anio: "2026",
+
+  // Cambia este texto cuando tengas la hora definitiva
+  hora: "Por confirmar",
+
+  ubicacion:
+    "https://maps.app.goo.gl/tYqGiXWF39RrR7WB9",
+};
+
+/* =====================================================
+   ANIMACIONES
 ===================================================== */
 
 const fadeUp = {
   hidden: {
     opacity: 0,
-    y: 70,
+    y: 60,
   },
 
   show: {
@@ -17,277 +34,42 @@ const fadeUp = {
     y: 0,
 
     transition: {
-      duration: 1.2,
+      duration: 1.1,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
-/* =====================================================
-   INFORMACIÓN DEL EVENTO
-===================================================== */
-
-const DATOS_EVENTO = {
-  diaSemana: "Sábado",
-  dia: "13",
-  mesAnio: "Marzo 2027",
-
-  ceremonia: {
-    titulo: "Ceremonia religiosa",
-    hora: "5:00 PM",
-    lugar: "Parroquia de San José",
-    direccion: "Puebla, Puebla",
-    ubicacion: "https://maps.google.com/",
+const contenedor = {
+  hidden: {
+    opacity: 0,
   },
 
-  recepcion: {
-    titulo: "Recepción",
-    hora: "7:00 PM",
-    lugar: "Salón Jardín La Toscana",
-    direccion: "Puebla, Puebla",
-    ubicacion: "https://maps.google.com/",
+  show: {
+    opacity: 1,
+
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.15,
+    },
   },
 };
 
-/* =====================================================
-   COMPONENTE DE UBICACIÓN
-===================================================== */
+const aparecer = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
 
-const TarjetaUbicacion = ({
-  titulo,
-  hora,
-  lugar,
-  direccion,
-  ubicacion,
-  delay = 0,
-}) => {
-  return (
-    <motion.article
-      initial={{
-        opacity: 0,
-        y: 35,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 0.9,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      viewport={{
-        once: true,
-        amount: 0.2,
-      }}
-      className="
-        relative
-        flex h-full
-        flex-col items-center
-        overflow-hidden
-        rounded-[28px]
-        border border-[#D5B76A]/25
-        bg-white/65
-        px-5 py-9
-        text-center
-        shadow-[0_18px_45px_rgba(82,14,39,0.09)]
-        backdrop-blur-xl
-        sm:px-7 sm:py-11
-      "
-    >
-      {/* Glow de tarjeta */}
+  show: {
+    opacity: 1,
+    y: 0,
 
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute -right-16 -top-16
-          h-44 w-44
-          rounded-full
-          bg-[#7A1838]/8
-          blur-3xl
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute -bottom-16 -left-16
-          h-44 w-44
-          rounded-full
-          bg-[#D5B76A]/15
-          blur-3xl
-        "
-      />
-
-      <div className="relative z-10 flex h-full w-full flex-col items-center">
-        {/* Título */}
-
-        <p
-          className="
-            text-[9px]
-            font-semibold
-            uppercase
-            tracking-[0.25em]
-            text-[#7A1838]
-            sm:text-[11px]
-            sm:tracking-[0.35em]
-          "
-        >
-          {titulo}
-        </p>
-
-        {/* Hora */}
-
-        <p
-          className="
-            mt-5
-            font-playfair
-            text-[34px]
-            leading-none
-            text-[#40202B]
-            sm:text-[42px]
-          "
-        >
-          {hora}
-        </p>
-
-        {/* Ornamento */}
-
-        <div className="my-6 flex items-center justify-center gap-3">
-          <div
-            className="
-              h-px w-10
-              bg-gradient-to-r
-              from-transparent to-[#D5B76A]
-              sm:w-14
-            "
-          />
-
-          <span className="text-sm text-[#D5B76A]">✦</span>
-
-          <div
-            className="
-              h-px w-10
-              bg-gradient-to-l
-              from-transparent to-[#D5B76A]
-              sm:w-14
-            "
-          />
-        </div>
-
-        {/* Lugar */}
-
-        <h3
-          className="
-            font-playfair
-            text-[22px]
-            leading-snug
-            text-[#511329]
-            sm:text-[26px]
-          "
-        >
-          {lugar}
-        </h3>
-
-        {/* Dirección */}
-
-        <p
-          className="
-            mt-3
-            text-sm
-            leading-relaxed
-            text-[#735563]
-            sm:text-base
-          "
-        >
-          {direccion}
-        </p>
-
-        {/* Botón */}
-
-        <motion.a
-          href={ubicacion}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="
-            relative
-            mt-8
-            inline-flex
-            min-h-[48px]
-            w-full
-            max-w-[250px]
-            items-center
-            justify-center
-            overflow-hidden
-            rounded-full
-            px-6 py-3.5
-          "
-          style={{
-            background: `
-              linear-gradient(
-                135deg,
-                #8D2447 0%,
-                #6A1735 50%,
-                #451022 100%
-              )
-            `,
-            boxShadow: `
-              0 14px 30px rgba(90,16,43,0.22),
-              inset 0 1px 0 rgba(255,255,255,0.22)
-            `,
-          }}
-          whileHover={{
-            scale: 1.04,
-            y: -2,
-          }}
-          whileTap={{
-            scale: 0.97,
-          }}
-        >
-          {/* Brillo animado */}
-
-          <motion.span
-            aria-hidden="true"
-            className="
-              absolute top-0
-              h-full w-[80%]
-              -skew-x-12
-              bg-white/20
-            "
-            initial={{
-              left: "-120%",
-            }}
-            animate={{
-              left: ["-120%", "150%"],
-            }}
-            transition={{
-              duration: 3.2,
-              repeat: Infinity,
-              repeatDelay: 1.2,
-              ease: "easeInOut",
-            }}
-          />
-
-          <span
-            className="
-              relative z-10
-              text-[10px]
-              font-semibold
-              uppercase
-              tracking-[0.22em]
-              text-white
-              sm:text-[11px]
-              sm:tracking-[0.3em]
-            "
-          >
-            Ver ubicación
-          </span>
-        </motion.a>
-      </div>
-    </motion.article>
-  );
+    transition: {
+      duration: 0.85,
+      ease: "easeOut",
+    },
+  },
 };
 
 /* =====================================================
@@ -306,37 +88,47 @@ export default function EventoDireccion() {
       }}
       className="
         relative
-        flex w-full
+        isolate
+        flex
+        min-h-[760px]
+        w-full
         items-center
         justify-center
         overflow-hidden
-        px-4 py-20
-        sm:px-6 sm:py-24
-        lg:px-10 lg:py-32
+
+        px-4
+        py-20
+
+        sm:min-h-[820px]
+        sm:px-6
+        sm:py-24
+
+        lg:px-10
+        lg:py-28
       "
       style={{
         background: `
           radial-gradient(
-            circle at top left,
-            rgba(122,24,56,0.09),
-            transparent 26%
+            circle at 15% 15%,
+            rgba(215,167,174,0.22),
+            transparent 30%
           ),
           radial-gradient(
-            circle at bottom right,
-            rgba(213,183,106,0.16),
-            transparent 28%
+            circle at 85% 85%,
+            rgba(165,111,133,0.18),
+            transparent 32%
           ),
           linear-gradient(
             145deg,
-            #fffafa 0%,
-            #f8edef 45%,
-            #ead7dc 100%
+            #fffaf8 0%,
+            #f8e9e8 45%,
+            #ead2d6 100%
           )
         `,
       }}
     >
       {/* =================================================
-          GLOWS DECORATIVOS
+          RESPLANDORES DECORATIVOS
       ================================================= */}
 
       <motion.div
@@ -344,15 +136,18 @@ export default function EventoDireccion() {
         className="
           pointer-events-none
           absolute -left-32 -top-32
+          -z-10
           h-[360px] w-[360px]
           rounded-full
-          bg-[#7A1838]/10
-          blur-3xl
-          sm:h-[480px] sm:w-[480px]
+          bg-[#D7A7AE]/20
+          blur-[100px]
+
+          sm:h-[480px]
+          sm:w-[480px]
         "
         animate={{
-          scale: [1, 1.14, 1],
-          opacity: [0.12, 0.24, 0.12],
+          scale: [1, 1.13, 1],
+          opacity: [0.4, 0.8, 0.4],
         }}
         transition={{
           duration: 8,
@@ -366,15 +161,18 @@ export default function EventoDireccion() {
         className="
           pointer-events-none
           absolute -bottom-36 -right-36
+          -z-10
           h-[380px] w-[380px]
           rounded-full
-          bg-[#D5B76A]/15
-          blur-3xl
-          sm:h-[520px] sm:w-[520px]
+          bg-[#A56F85]/20
+          blur-[110px]
+
+          sm:h-[520px]
+          sm:w-[520px]
         "
         animate={{
           scale: [1.1, 1, 1.1],
-          opacity: [0.12, 0.22, 0.12],
+          opacity: [0.35, 0.7, 0.35],
         }}
         transition={{
           duration: 9,
@@ -384,18 +182,60 @@ export default function EventoDireccion() {
       />
 
       {/* =================================================
-          TEXTURA
+          CÍRCULOS DECORATIVOS
       ================================================= */}
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        className="
+          pointer-events-none
+          absolute -left-24 top-1/2
+          -z-10
+          h-64 w-64
+          -translate-y-1/2
+          rounded-full
+          border
+          border-[#C7A56A]/20
+
+          sm:h-80
+          sm:w-80
+        "
+      />
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute -right-20 top-[42%]
+          -z-10
+          h-48 w-48
+          rounded-full
+          border
+          border-[#A56F85]/15
+
+          sm:h-64
+          sm:w-64
+        "
+      />
+
+      {/* =================================================
+          TEXTURA MUY LIGERA
+      ================================================= */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute inset-0
+          -z-10
+          opacity-[0.025]
+        "
         style={{
           backgroundImage: `
             repeating-linear-gradient(
               45deg,
-              rgba(79,16,40,0.14) 0px,
-              rgba(79,16,40,0.14) 1px,
+              rgba(112,70,90,0.15) 0px,
+              rgba(112,70,90,0.15) 1px,
               transparent 1px,
               transparent 7px
             )
@@ -404,143 +244,149 @@ export default function EventoDireccion() {
       />
 
       {/* =================================================
-          CONTENEDOR PRINCIPAL
+          CONTENIDO PRINCIPAL
       ================================================= */}
 
-      <div className="relative z-10 w-full max-w-6xl">
-        {/* =================================================
-            ENCABEZADO
-        ================================================= */}
+      <motion.div
+        className="
+          relative z-10
+          mx-auto
+          w-full
+          max-w-4xl
+          text-center
+        "
+        variants={contenedor}
+        initial="hidden"
+        whileInView="show"
+        viewport={{
+          once: true,
+          amount: 0.2,
+        }}
+      >
+        {/* ETIQUETA SUPERIOR */}
 
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.9,
-          }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-3xl text-center"
+          className="
+            flex items-center
+            justify-center
+            gap-3
+
+            sm:gap-5
+          "
+          variants={aparecer}
         >
-          {/* Etiqueta */}
-
-          <div className="flex items-center justify-center gap-3 sm:gap-5">
-            <div
-              className="
-                h-px w-8
-                bg-gradient-to-r
-                from-transparent to-[#D5B76A]
-                sm:w-16
-              "
-            />
-
-            <p
-              className="
-                whitespace-nowrap
-                text-[9px]
-                font-semibold
-                uppercase
-                tracking-[0.28em]
-                text-[#7A1838]
-                sm:text-[11px]
-                sm:tracking-[0.45em]
-              "
-            >
-              Save the date
-            </p>
-
-            <div
-              className="
-                h-px w-8
-                bg-gradient-to-l
-                from-transparent to-[#D5B76A]
-                sm:w-16
-              "
-            />
-          </div>
-
-          {/* Título */}
-
-          <h2
+          <span
             className="
-              mt-5
-              font-cursiveDancing
-              text-[44px]
-              leading-tight
-              text-[#711936]
-              sm:text-[58px]
-              md:text-[72px]
+              h-px w-9
+              bg-gradient-to-r
+              from-transparent
+              to-[#C7A56A]
+
+              sm:w-16
             "
-          >
-            Celebremos juntos
-          </h2>
+          />
 
           <p
             className="
-              mx-auto mt-4
-              max-w-2xl
-              font-playfair
-              text-base
-              leading-relaxed
-              text-[#72505D]
-              sm:text-lg
+              whitespace-nowrap
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.28em]
+              text-[#70465A]
+
+              sm:text-[11px]
+              sm:tracking-[0.45em]
             "
           >
-            Hay momentos en la vida que son especiales por sí solos,
-            pero compartirlos con personas importantes los hace
-            inolvidables.
+            Save the date
           </p>
+
+          <span
+            className="
+              h-px w-9
+              bg-gradient-to-l
+              from-transparent
+              to-[#C7A56A]
+
+              sm:w-16
+            "
+          />
         </motion.div>
 
+        {/* TÍTULO */}
+
+        <motion.h2
+          className="
+            mt-5
+
+            font-cursiveDancing
+            text-[48px]
+            font-normal
+            leading-tight
+            text-[#70465A]
+
+            sm:text-[62px]
+            md:text-[76px]
+          "
+          variants={aparecer}
+        >
+          Celebremos juntos
+        </motion.h2>
+
+        {/* TEXTO */}
+
+        <motion.p
+          className="
+            mx-auto mt-4
+            max-w-xl
+
+            font-playfair
+            text-[16px]
+            leading-relaxed
+            text-[#725563]
+
+            sm:text-[18px]
+          "
+          variants={aparecer}
+        >
+          Te espero para compartir conmigo este día tan especial.
+        </motion.p>
+
         {/* =================================================
-            CARD DE FECHA
+            TARJETA DE FECHA
         ================================================= */}
 
         <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.96,
-            y: 35,
-          }}
-          whileInView={{
-            opacity: 1,
-            scale: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-            delay: 0.15,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
           className="
             relative
-            mx-auto mt-12
-            w-full max-w-3xl
+            mx-auto mt-10
+            w-full
+            max-w-[620px]
             overflow-hidden
+
             rounded-[32px]
-            border border-white/60
-            bg-white/55
-            px-5 py-11
-            text-center
-            shadow-[0_25px_65px_rgba(84,17,42,0.12)]
-            backdrop-blur-xl
-            sm:mt-16
+            border
+            border-white/70
+
+            bg-white/45
+
+            px-5
+            py-10
+
+            shadow-[0_25px_65px_rgba(112,70,90,0.13)]
+            backdrop-blur-lg
+
+            sm:mt-14
             sm:rounded-[40px]
             sm:px-10
             sm:py-14
-            md:px-16
+
+            md:px-14
           "
+          variants={aparecer}
         >
-          {/* Brillo */}
+          {/* BRILLO INTERIOR */}
 
           <div
             aria-hidden="true"
@@ -548,17 +394,36 @@ export default function EventoDireccion() {
               pointer-events-none
               absolute inset-0
               bg-gradient-to-br
-              from-white/80
+              from-white/60
               via-transparent
-              to-[#7A1838]/5
+              to-[#D7A7AE]/10
+            "
+          />
+
+          {/* MARCO INTERIOR */}
+
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute inset-3
+              rounded-[24px]
+              border
+              border-[#C7A56A]/20
+
+              sm:inset-4
+              sm:rounded-[30px]
             "
           />
 
           <div className="relative z-10">
-            {/* Ornamento superior */}
+            {/* ORNAMENTO */}
 
             <motion.div
-              className="flex items-center justify-center"
+              className="
+                flex items-center
+                justify-center
+              "
               animate={{
                 opacity: [0.7, 1, 0.7],
               }}
@@ -568,14 +433,15 @@ export default function EventoDireccion() {
                 ease: "easeInOut",
               }}
             >
-              <motion.div
-                className="h-px"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, rgba(181,143,63,0.75))",
-                }}
+              <motion.span
+                className="
+                  h-px
+                  bg-gradient-to-r
+                  from-transparent
+                  to-[#C7A56A]
+                "
                 animate={{
-                  width: ["45px", "80px", "45px"],
+                  width: ["38px", "70px", "38px"],
                 }}
                 transition={{
                   duration: 4,
@@ -585,7 +451,11 @@ export default function EventoDireccion() {
               />
 
               <motion.span
-                className="mx-4 text-lg text-[#D5B76A]"
+                className="
+                  mx-4
+                  text-lg
+                  text-[#C7A56A]
+                "
                 animate={{
                   rotate: [0, 8, -8, 0],
                   scale: [1, 1.12, 1],
@@ -599,14 +469,15 @@ export default function EventoDireccion() {
                 ✦
               </motion.span>
 
-              <motion.div
-                className="h-px"
-                style={{
-                  background:
-                    "linear-gradient(to left, transparent, rgba(181,143,63,0.75))",
-                }}
+              <motion.span
+                className="
+                  h-px
+                  bg-gradient-to-l
+                  from-transparent
+                  to-[#C7A56A]
+                "
                 animate={{
-                  width: ["45px", "80px", "45px"],
+                  width: ["38px", "70px", "38px"],
                 }}
                 transition={{
                   duration: 4,
@@ -616,134 +487,270 @@ export default function EventoDireccion() {
               />
             </motion.div>
 
-            {/* Fecha */}
+            {/* DÍA DE LA SEMANA */}
 
-            <motion.h3
+            <p
               className="
-                mt-8
-                font-playfair
-                text-[25px]
-                font-light
-                leading-tight
-                text-[#40202B]
-                sm:text-[34px]
+                mt-7
+
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.35em]
+                text-[#9A7482]
+
+                sm:text-[12px]
+                sm:tracking-[0.5em]
               "
+            >
+              {DATOS_EVENTO.diaSemana}
+            </p>
+
+            {/* NÚMERO DEL DÍA */}
+
+            <motion.p
+              className="
+                my-2
+
+                font-cursiveDancing
+                text-[88px]
+                leading-none
+
+                sm:text-[116px]
+              "
+              style={{
+                background: `
+                  linear-gradient(
+                    180deg,
+                    #A56F85 0%,
+                    #70465A 48%,
+                    #452735 100%
+                  )
+                `,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                filter:
+                  "drop-shadow(0 8px 18px rgba(112,70,90,0.15))",
+              }}
               animate={{
-                opacity: [0.88, 1, 0.88],
+                opacity: [0.9, 1, 0.9],
               }}
               transition={{
                 duration: 4,
                 repeat: Infinity,
+                ease: "easeInOut",
               }}
             >
-              {DATOS_EVENTO.diaSemana}
+              {DATOS_EVENTO.dia}
+            </motion.p>
 
-              <br />
+            {/* MES Y AÑO */}
 
-              <span
+            <p
+              className="
+                text-[12px]
+                font-semibold
+                uppercase
+                tracking-[0.28em]
+                text-[#70465A]
+
+                sm:text-[15px]
+                sm:tracking-[0.42em]
+              "
+            >
+              {DATOS_EVENTO.mes} • {DATOS_EVENTO.anio}
+            </p>
+
+            {/* SEPARADOR */}
+
+            <div
+              className="
+                mx-auto my-7
+                h-px w-28
+                bg-gradient-to-r
+                from-transparent
+                via-[#C7A56A]
+                to-transparent
+
+                sm:w-40
+              "
+            />
+
+            {/* HORA */}
+
+            <div>
+              <p
                 className="
-                  my-2
-                  inline-block
-                  font-cursiveDancing
-                  text-[78px]
-                  leading-none
-                  sm:text-[105px]
-                "
-                style={{
-                  background: `
-                    linear-gradient(
-                      180deg,
-                      #8D2447 0%,
-                      #6A1735 45%,
-                      #421020 100%
-                    )
-                  `,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  filter:
-                    "drop-shadow(0 8px 18px rgba(104,19,50,0.16))",
-                }}
-              >
-                {DATOS_EVENTO.dia}
-              </span>
-
-              <br />
-
-              <span
-                className="
-                  block
-                  text-[11px]
+                  text-[9px]
+                  font-semibold
                   uppercase
-                  tracking-[0.22em]
-                  text-[#9B6C7C]
-                  sm:text-[14px]
-                  sm:tracking-[0.38em]
+                  tracking-[0.28em]
+                  text-[#9A7482]
+
+                  sm:text-[11px]
+                  sm:tracking-[0.4em]
                 "
               >
-                {DATOS_EVENTO.mesAnio}
+                Hora
+              </p>
+
+              <p
+                className="
+                  mt-3
+
+                  font-playfair
+                  text-[25px]
+                  leading-none
+                  text-[#452735]
+
+                  sm:text-[32px]
+                "
+              >
+                {DATOS_EVENTO.hora}
+              </p>
+            </div>
+
+            {/* =================================================
+                BOTÓN DE GOOGLE MAPS
+            ================================================= */}
+
+            <motion.a
+              href={DATOS_EVENTO.ubicacion}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Abrir ubicación del evento en Google Maps"
+              className="
+                relative
+                mx-auto mt-8
+
+                inline-flex
+                min-h-[50px]
+                w-full
+                max-w-[260px]
+
+                items-center
+                justify-center
+                overflow-hidden
+
+                rounded-full
+
+                px-6
+                py-3.5
+              "
+              style={{
+                background: `
+                  linear-gradient(
+                    135deg,
+                    #A56F85 0%,
+                    #70465A 52%,
+                    #452735 100%
+                  )
+                `,
+                boxShadow: `
+                  0 14px 30px rgba(112,70,90,0.25),
+                  inset 0 1px 0 rgba(255,255,255,0.22)
+                `,
+              }}
+              whileHover={{
+                scale: 1.04,
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+            >
+              {/* BRILLO DEL BOTÓN */}
+
+              <motion.span
+                aria-hidden="true"
+                className="
+                  absolute top-0
+                  h-full w-[80%]
+                  -skew-x-12
+                  bg-white/20
+                "
+                initial={{
+                  left: "-120%",
+                }}
+                animate={{
+                  left: ["-120%", "150%"],
+                }}
+                transition={{
+                  duration: 3.2,
+                  repeat: Infinity,
+                  repeatDelay: 1.2,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* ICONO DE UBICACIÓN */}
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                className="
+                  relative z-10
+                  mr-2
+                  h-4 w-4
+                  shrink-0
+                "
+              >
+                <path
+                  d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                />
+
+                <circle
+                  cx="12"
+                  cy="10"
+                  r="2.2"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                />
+              </svg>
+
+              <span
+                className="
+                  relative z-10
+
+                  text-[10px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.2em]
+                  text-white
+
+                  sm:text-[11px]
+                  sm:tracking-[0.28em]
+                "
+              >
+                Ver ubicación
               </span>
-            </motion.h3>
+            </motion.a>
           </div>
         </motion.div>
 
-        {/* =================================================
-            CEREMONIA Y RECEPCIÓN
-        ================================================= */}
-
-        <div
-          className="
-            mt-8
-            grid grid-cols-1
-            gap-6
-            sm:mt-10
-            md:grid-cols-2
-            lg:gap-8
-          "
-        >
-          <TarjetaUbicacion
-            {...DATOS_EVENTO.ceremonia}
-            delay={0.25}
-          />
-
-          <TarjetaUbicacion
-            {...DATOS_EVENTO.recepcion}
-            delay={0.4}
-          />
-        </div>
-
-        {/* =================================================
-            MENSAJE FINAL
-        ================================================= */}
+        {/* MENSAJE FINAL */}
 
         <motion.p
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.9,
-            delay: 0.45,
-          }}
-          viewport={{ once: true }}
           className="
-            mx-auto mt-12
-            max-w-2xl
-            text-center
+            mx-auto mt-10
+            max-w-xl
+
             font-cursiveDancing
-            text-[25px]
+            text-[26px]
             leading-relaxed
-            text-[#711936]
-            sm:mt-16
-            sm:text-[32px]
+            text-[#70465A]
+
+            sm:mt-14
+            sm:text-[34px]
           "
+          variants={aparecer}
         >
-          Tu presencia hará de este día un recuerdo aún más especial.
+          Tu presencia hará este momento aún más especial.
         </motion.p>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

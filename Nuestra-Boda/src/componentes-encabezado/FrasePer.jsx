@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 
 const FrasePersonalizada = () => {
   const frase =
-    "Hoy comienzo una nueva etapa llena de sueños, ilusiones y momentos que guardaré por siempre en mi corazón.";
+    "Hoy doy gracias a Dios por regalarme la vida y poder celebrar con mi familia y amigos mis XV años, el comienzo de otra etapa, otros sueños.";
 
-  const nombre = "Carla";
+  const nombre = "Mia Selene";
 
   const contenedor = {
     hidden: {
@@ -16,7 +16,7 @@ const FrasePersonalizada = () => {
       opacity: 1,
 
       transition: {
-        staggerChildren: 0.25,
+        staggerChildren: 0.22,
         delayChildren: 0.15,
       },
     },
@@ -42,8 +42,8 @@ const FrasePersonalizada = () => {
   const aparecerCentro = {
     hidden: {
       opacity: 0,
-      y: 35,
-      scale: 0.97,
+      y: 30,
+      scale: 0.98,
     },
 
     show: {
@@ -79,173 +79,161 @@ const FrasePersonalizada = () => {
     <section
       className="
         relative
+        isolate
         flex
-        min-h-[620px]
+        min-h-[100svh]
         w-full
         items-center
         justify-center
         overflow-hidden
-        bg-[linear-gradient(145deg,#fffafa_0%,#f8edef_45%,#ead7dc_100%)]
-        px-5
+        bg-[#E8D2D4]
+
+        px-4
         py-20
+
         sm:px-8
         sm:py-24
-        lg:min-h-[700px]
+
+        md:min-h-[760px]
+
         lg:px-12
         lg:py-28
       "
     >
-      {/* Resplandor vino superior */}
-      <motion.div
+      {/* =================================================
+          IMAGEN DE FONDO
+      ================================================= */}
+
+      <motion.img
+        src="/fraseBosque.png"
+        alt=""
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute
-          -top-36
-          left-1/2
-          h-[340px]
-          w-[340px]
-          -translate-x-1/2
-          rounded-full
-          bg-[#7A1838]/10
-          blur-[100px]
-          sm:h-[430px]
-          sm:w-[430px]
+          absolute inset-0
+          -z-30
+          h-full w-full
+          object-cover
+          object-center
         "
-        animate={{
-          scale: [1, 1.12, 1],
-          opacity: [0.6, 1, 0.6],
+        initial={{
+          opacity: 0,
+          scale: 1.06,
+        }}
+        whileInView={{
+          opacity: 1,
+          scale: 1,
         }}
         transition={{
-          duration: 8,
+          opacity: {
+            duration: 1.2,
+          },
+
+          scale: {
+            duration: 5,
+            ease: "easeOut",
+          },
+        }}
+        viewport={{
+          once: true,
+        }}
+      />
+
+      {/* CAPA MUY LIGERA SOBRE LA IMAGEN */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute inset-0
+          -z-20
+        "
+        style={{
+          background: `
+            linear-gradient(
+              180deg,
+              rgba(255,249,247,0.04) 0%,
+              rgba(255,245,243,0.08) 45%,
+              rgba(112,70,90,0.08) 100%
+            )
+          `,
+        }}
+      />
+
+      {/* LUCES DECORATIVAS */}
+
+      <motion.span
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute left-[11%] top-[35%]
+          h-1.5 w-1.5
+          rounded-full
+          bg-[#F5DCA4]
+          shadow-[0_0_18px_rgba(245,220,164,0.95)]
+        "
+        animate={{
+          opacity: [0.3, 1, 0.3],
+          scale: [0.8, 1.25, 0.8],
+        }}
+        transition={{
+          duration: 3.8,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
 
-      {/* Resplandor dorado inferior */}
-      <motion.div
+      <motion.span
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute
-          -bottom-44
-          right-[-120px]
-          h-[360px]
-          w-[360px]
+          absolute right-[12%] top-[24%]
+          h-1 w-1
           rounded-full
-          bg-[#D5B76A]/20
-          blur-[110px]
-          sm:h-[450px]
-          sm:w-[450px]
+          bg-[#F5DCA4]
+          shadow-[0_0_16px_rgba(245,220,164,0.9)]
         "
         animate={{
-          scale: [1.1, 1, 1.1],
-          opacity: [0.5, 1, 0.5],
+          opacity: [1, 0.35, 1],
+          scale: [1, 0.7, 1],
         }}
         transition={{
-          duration: 9,
+          duration: 4.5,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
 
-      {/* Resplandor vino lateral */}
-      <div
+      <motion.span
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute
-          -left-28
-          top-1/2
-          h-[250px]
-          w-[250px]
-          -translate-y-1/2
+          absolute bottom-[22%] right-[16%]
+          h-1.5 w-1.5
           rounded-full
-          bg-[#8D2447]/5
-          blur-[80px]
-          sm:h-[330px]
-          sm:w-[330px]
+          bg-[#FFF4DE]
+          shadow-[0_0_18px_rgba(255,244,222,0.95)]
         "
+        animate={{
+          opacity: [0.4, 1, 0.4],
+        }}
+        transition={{
+          duration: 3.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       />
 
-      {/* Círculo decorativo izquierdo */}
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-[-110px]
-          top-1/2
-          h-[230px]
-          w-[230px]
-          -translate-y-1/2
-          rounded-full
-          border
-          border-[#D5B76A]/25
-          sm:h-[300px]
-          sm:w-[300px]
-        "
-      />
-
-      {/* Círculo decorativo interior */}
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-[-80px]
-          top-1/2
-          h-[170px]
-          w-[170px]
-          -translate-y-1/2
-          rounded-full
-          border
-          border-[#7A1838]/10
-          sm:h-[225px]
-          sm:w-[225px]
-        "
-      />
-
-      {/* Línea vertical decorativa */}
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-5
-          top-16
-          hidden
-          h-24
-          w-px
-          bg-gradient-to-b
-          from-transparent
-          via-[#D5B76A]/70
-          to-transparent
-          sm:block
-          lg:left-12
-        "
-      />
-
-      {/* Textura muy ligera */}
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          opacity-[0.025]
-          bg-[repeating-linear-gradient(45deg,rgba(79,16,40,0.14)_0px,rgba(79,16,40,0.14)_1px,transparent_1px,transparent_7px)]
-        "
-      />
+      {/* =================================================
+          CONTENIDO
+      ================================================= */}
 
       <motion.div
         className="
-          relative
-          z-10
+          relative z-10
           mx-auto
           w-full
-          max-w-4xl
+          max-w-[760px]
         "
         variants={contenedor}
         initial="hidden"
@@ -255,124 +243,92 @@ const FrasePersonalizada = () => {
           amount: 0.3,
         }}
       >
-        {/* Tarjeta principal */}
+        {/* =================================================
+            TARJETA COMPLETAMENTE TRANSPARENTE
+        ================================================= */}
+
         <motion.div
           className="
             relative
             overflow-hidden
+
             rounded-[2rem]
             border
-            border-[#D5B76A]/30
-            bg-white/55
+            border-white/45
+
+            bg-transparent
+
             px-6
-            py-14
+            py-12
+
             text-center
-            shadow-[0_25px_70px_rgba(84,17,42,0.13)]
-            backdrop-blur-xl
+
+            shadow-none
+            backdrop-blur-none
+
             sm:rounded-[2.5rem]
             sm:px-12
             sm:py-16
+
             md:px-16
             md:py-20
-            lg:px-24
           "
           variants={aparecerCentro}
         >
-          {/* Brillo interior */}
-          <div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              inset-0
-              bg-gradient-to-br
-              from-white/80
-              via-transparent
-              to-[#7A1838]/5
-            "
-          />
+          {/* MARCO INTERIOR */}
 
-          {/* Resplandor interior superior */}
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-              absolute
-              -right-20
-              -top-20
-              h-52
-              w-52
-              rounded-full
-              bg-[#7A1838]/8
-              blur-3xl
-            "
-          />
+              absolute inset-3
 
-          {/* Resplandor interior inferior */}
-          <div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              -bottom-20
-              -left-20
-              h-52
-              w-52
-              rounded-full
-              bg-[#D5B76A]/15
-              blur-3xl
-            "
-          />
-
-          {/* Marco interior */}
-          <div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              inset-3
-              rounded-[1.5rem]
+              rounded-[1.45rem]
               border
-              border-[#D5B76A]/20
+              border-[#B89058]/35
+
               sm:inset-4
               sm:rounded-[2rem]
             "
           />
 
-          {/* Decoración superior */}
+          {/* ENCABEZADO */}
+
           <motion.div
             className="
-              relative
-              z-10
-              mb-8
+              relative z-10
+              mb-6
               flex
               items-center
               justify-center
-              gap-4
+              gap-3
+
+              sm:mb-8
+              sm:gap-5
             "
             variants={aparecerArriba}
           >
             <span
               className="
-                h-px
-                w-12
+                h-px w-10
                 bg-gradient-to-r
                 from-transparent
-                to-[#D5B76A]
-                sm:w-20
+                to-[#B89058]
+
+                sm:w-16
               "
             />
 
             <motion.span
               className="
-                font-playfair
-                text-xl
-                text-[#D5B76A]
+                text-lg
+                text-[#B89058]
+
                 sm:text-2xl
               "
               animate={{
                 rotate: [0, 8, -8, 0],
-                scale: [1, 1.12, 1],
+                scale: [1, 1.15, 1],
               }}
               transition={{
                 duration: 5,
@@ -385,46 +341,51 @@ const FrasePersonalizada = () => {
 
             <span
               className="
-                h-px
-                w-12
+                h-px w-10
                 bg-gradient-to-l
                 from-transparent
-                to-[#D5B76A]
-                sm:w-20
+                to-[#B89058]
+
+                sm:w-16
               "
             />
           </motion.div>
 
-          {/* Texto pequeño */}
+          {/* TEXTO SUPERIOR */}
+
           <motion.p
             className="
-              relative
-              z-10
+              relative z-10
               mb-5
+
               text-[9px]
               font-semibold
               uppercase
-              tracking-[0.28em]
-              text-[#7A1838]
+              tracking-[0.27em]
+              text-[#70465A]
+
               sm:text-[11px]
-              sm:tracking-[0.45em]
+              sm:tracking-[0.42em]
             "
             variants={aparecerArriba}
           >
-            Un momento para recordar
+            Una nueva etapa comienza
           </motion.p>
 
-          {/* Comillas decorativas */}
+          {/* COMILLA DE APERTURA */}
+
           <motion.span
             className="
-              relative
-              z-10
+              relative z-10
               block
-              h-12
+              h-10
+
               font-playfair
               text-6xl
               leading-none
-              text-[#D5B76A]/65
+              text-[#B89058]/75
+
+              sm:h-12
               sm:text-7xl
             "
             variants={aparecerCentro}
@@ -432,126 +393,119 @@ const FrasePersonalizada = () => {
             “
           </motion.span>
 
-          {/* Frase */}
+          {/* FRASE */}
+
           <motion.p
             className="
-              relative
-              z-10
+              relative z-10
               mx-auto
-              max-w-3xl
+              max-w-2xl
+
               font-playfair
-              text-2xl
+              text-[22px]
               font-normal
-              leading-relaxed
-              text-[#40202B]
-              sm:text-3xl
-              sm:leading-relaxed
-              md:text-4xl
-              md:leading-relaxed
-              lg:text-[2.65rem]
+              leading-[1.65]
+              text-[#452735]
+
+              drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]
+
+              sm:text-[29px]
+              sm:leading-[1.65]
+
+              md:text-[34px]
+              md:leading-[1.6]
+
+              lg:text-[38px]
             "
             variants={aparecerCentro}
           >
             {frase}
           </motion.p>
 
-          {/* Separador */}
+          {/* COMILLA DE CIERRE */}
+
+          <motion.span
+            className="
+              relative z-10
+              mt-1
+              block h-8
+
+              font-playfair
+              text-6xl
+              leading-none
+              text-[#B89058]/75
+
+              sm:text-7xl
+            "
+            variants={aparecerCentro}
+          >
+            ”
+          </motion.span>
+
+          {/* SEPARADOR */}
+
           <motion.div
             className="
-              relative
-              z-10
+              relative z-10
               mx-auto
-              my-8
+              my-7
+
               flex
               items-center
               justify-center
               gap-3
+
+              sm:my-9
             "
             variants={aparecerAbajo}
           >
             <span
               className="
-                h-px
-                w-8
+                h-px w-8
                 bg-gradient-to-r
                 from-transparent
-                to-[#D5B76A]
-                sm:w-12
+                to-[#B89058]
+
+                sm:w-14
               "
             />
 
             <span
               className="
-                h-1.5
-                w-1.5
+                h-1.5 w-1.5
                 rotate-45
-                bg-[#D5B76A]
-                shadow-[0_0_12px_rgba(213,183,106,0.65)]
+                bg-[#B89058]
+                shadow-[0_0_12px_rgba(184,144,88,0.55)]
               "
             />
 
             <span
               className="
-                h-px
-                w-8
+                h-px w-8
                 bg-gradient-to-l
                 from-transparent
-                to-[#D5B76A]
-                sm:w-12
+                to-[#B89058]
+
+                sm:w-14
               "
             />
           </motion.div>
 
-          {/* Nombre */}
-          <motion.p
-            className="
-              relative
-              z-10
-              font-cursiveDancing
-              text-5xl
-              leading-none
-              text-[#711936]
-              drop-shadow-[0_7px_14px_rgba(104,19,50,0.14)]
-              sm:text-6xl
-              md:text-7xl
-            "
-            variants={aparecerAbajo}
-          >
-            {nombre}
-          </motion.p>
 
-          {/* Texto inferior */}
-          <motion.p
-            className="
-              relative
-              z-10
-              mt-4
-              text-[9px]
-              font-semibold
-              uppercase
-              tracking-[0.28em]
-              text-[#9B6C7C]
-              sm:text-[11px]
-              sm:tracking-[0.4em]
-            "
-            variants={aparecerAbajo}
-          >
-            Mis XV años
-          </motion.p>
+          {/* ESQUINA SUPERIOR IZQUIERDA */}
 
-          {/* Esquina superior izquierda */}
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-              absolute
-              left-6
-              top-6
-              h-12
-              w-12
+              absolute left-6 top-6
+
+              h-12 w-12
+
               border-l
               border-t
-              border-[#D5B76A]/45
+              border-[#B89058]/45
+
               sm:left-9
               sm:top-9
               sm:h-16
@@ -559,57 +513,24 @@ const FrasePersonalizada = () => {
             "
           />
 
-          {/* Esquina inferior derecha */}
+          {/* ESQUINA INFERIOR DERECHA */}
+
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-              absolute
-              bottom-6
-              right-6
-              h-12
-              w-12
+              absolute bottom-6 right-6
+
+              h-12 w-12
+
               border-b
               border-r
-              border-[#D5B76A]/45
+              border-[#B89058]/45
+
               sm:bottom-9
               sm:right-9
               sm:h-16
               sm:w-16
-            "
-          />
-
-          {/* Puntos decorativos */}
-          <span
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              right-10
-              top-12
-              h-1.5
-              w-1.5
-              rounded-full
-              bg-[#D5B76A]/70
-              shadow-[0_0_12px_rgba(213,183,106,0.75)]
-              sm:right-14
-              sm:top-16
-            "
-          />
-
-          <span
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute
-              bottom-12
-              left-10
-              h-1
-              w-1
-              rounded-full
-              bg-[#7A1838]/50
-              sm:bottom-16
-              sm:left-14
             "
           />
         </motion.div>

@@ -1,7 +1,28 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import {
+  Check,
+  Copy,
+  CreditCard,
+  Eye,
+  EyeOff,
+  Gift,
+  Mail,
+} from "lucide-react";
+
+/* =====================================================
+   INFORMACIÓN DE REGALOS
+===================================================== */
+
+const DATOS_REGALOS = {
+  imagenFlores: "/arbolesPadres.png",
+  titular: "Mia Mora",
+  banco: "Débito Nu",
+  numeroCuenta: "5101253694724370",
+  clabe: "638180000031067317",
+};
 
 /* =====================================================
    ANIMACIÓN GENERAL
@@ -10,7 +31,7 @@ import { useEffect, useState } from "react";
 const fadeUp = {
   hidden: {
     opacity: 0,
-    y: 60,
+    y: 45,
   },
 
   show: {
@@ -18,25 +39,210 @@ const fadeUp = {
     y: 0,
 
     transition: {
-      duration: 1,
+      duration: 0.9,
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
 /* =====================================================
-   INFORMACIÓN DE REGALOS
+   OCULTAR INFORMACIÓN BANCARIA
 ===================================================== */
 
-const DATOS_REGALOS = {
-  numeroEvento: "12345678",
-  imagenRegalo: "/regalo1.png",
+const ocultarDato = (valor) => {
+  const ultimosCuatro = valor.slice(-4);
+  const caracteresOcultos = "•".repeat(valor.length - 4);
 
-  mensaje:
-    "Tu presencia será mi mejor regalo, pero si deseas tener un detalle conmigo, he preparado una mesa de regalos en Liverpool.",
+  return `${caracteresOcultos}${ultimosCuatro}`;
+};
 
-  mensajeLiverpool:
-    "He seleccionado algunas opciones que me encantaría recibir. Puedes consultar la mesa de regalos utilizando el número de evento o el botón inferior.",
+/* =====================================================
+   COMPONENTE PARA DATOS BANCARIOS
+===================================================== */
+
+const DatoBancario = ({ etiqueta, valor }) => {
+  const [visible, setVisible] = useState(false);
+  const [copiado, setCopiado] = useState(false);
+
+  const copiarDato = async () => {
+    try {
+      await navigator.clipboard.writeText(valor);
+      setCopiado(true);
+
+      window.setTimeout(() => {
+        setCopiado(false);
+      }, 2200);
+    } catch (error) {
+      console.error(`No se pudo copiar ${etiqueta}:`, error);
+    }
+  };
+
+  return (
+    <div
+      className="
+        w-full
+        rounded-[20px]
+        border
+        border-[#B89058]/35
+        bg-[#FFF9F5]
+        px-4
+        py-4
+        shadow-[0_10px_24px_rgba(112,70,90,0.10)]
+        transition-all
+        duration-300
+        hover:-translate-y-0.5
+        hover:border-[#70465A]/40
+        sm:px-5
+      "
+    >
+      <p
+        className="
+          text-[9px]
+          font-semibold
+          uppercase
+          tracking-[0.22em]
+          text-[#725563]
+          sm:text-[10px]
+        "
+      >
+        {etiqueta}
+      </p>
+
+      <p
+        className="
+          mt-2
+          min-h-[26px]
+          break-all
+          font-mono
+          text-[14px]
+          font-semibold
+          tracking-[0.06em]
+          text-[#70465A]
+          sm:text-[17px]
+          sm:tracking-[0.1em]
+        "
+      >
+        {visible ? valor : ocultarDato(valor)}
+      </p>
+
+      <div
+        className="
+          mt-4
+          flex
+          items-center
+          justify-center
+          gap-2
+        "
+      >
+        {/* MOSTRAR U OCULTAR */}
+
+        <motion.button
+          type="button"
+          onClick={() => setVisible((estadoActual) => !estadoActual)}
+          aria-label={
+            visible
+              ? `Ocultar ${etiqueta}`
+              : `Mostrar ${etiqueta}`
+          }
+          className="
+            inline-flex
+            min-h-[40px]
+            items-center
+            justify-center
+            gap-2
+            rounded-full
+            border
+            border-[#70465A]/25
+            bg-[#EAD2D6]
+            px-4
+            text-[9px]
+            font-semibold
+            uppercase
+            tracking-[0.12em]
+            text-[#70465A]
+            transition-colors
+            hover:border-[#70465A]
+            hover:bg-[#70465A]
+            hover:text-white
+            focus-visible:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-[#B89058]
+          "
+          whileHover={{
+            scale: 1.03,
+          }}
+          whileTap={{
+            scale: 0.96,
+          }}
+        >
+          {visible ? (
+            <EyeOff size={16} strokeWidth={1.8} />
+          ) : (
+            <Eye size={16} strokeWidth={1.8} />
+          )}
+
+          <span>{visible ? "Ocultar" : "Mostrar"}</span>
+        </motion.button>
+
+        {/* COPIAR */}
+
+        <motion.button
+          type="button"
+          onClick={copiarDato}
+          aria-label={`Copiar ${etiqueta}`}
+          className={`
+            inline-flex
+            min-h-[40px]
+            items-center
+            justify-center
+            gap-2
+            rounded-full
+            border
+            px-4
+            text-[9px]
+            font-semibold
+            uppercase
+            tracking-[0.12em]
+            transition-colors
+            focus-visible:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-[#B89058]
+
+            ${
+              copiado
+                ? `
+                  border-[#B89058]
+                  bg-[#B89058]
+                  text-white
+                `
+                : `
+                  border-[#70465A]/25
+                  bg-[#FFF9F5]
+                  text-[#70465A]
+                  hover:border-[#70465A]
+                  hover:bg-[#70465A]
+                  hover:text-white
+                `
+            }
+          `}
+          whileHover={{
+            scale: 1.03,
+          }}
+          whileTap={{
+            scale: 0.96,
+          }}
+        >
+          {copiado ? (
+            <Check size={16} strokeWidth={2} />
+          ) : (
+            <Copy size={16} strokeWidth={1.8} />
+          )}
+
+          <span>{copiado ? "Copiado" : "Copiar"}</span>
+        </motion.button>
+      </div>
+    </div>
+  );
 };
 
 /* =====================================================
@@ -44,1020 +250,560 @@ const DATOS_REGALOS = {
 ===================================================== */
 
 const Regalos = () => {
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [numeroCopiado, setNumeroCopiado] = useState(false);
-
-  const linkLiverpool = `https://www.liverpool.com.mx/tienda/giftregistry/giftRegistryDetail.jsp?eventNo=${DATOS_REGALOS.numeroEvento}`;
-
-  /* =====================================================
-     BLOQUEAR SCROLL Y CERRAR CON ESCAPE
-  ===================================================== */
-
-  useEffect(() => {
-    const cerrarConEscape = (event) => {
-      if (event.key === "Escape") {
-        setMostrarModal(false);
-      }
-    };
-
-    if (mostrarModal) {
-      document.body.style.overflow = "hidden";
-      document.addEventListener("keydown", cerrarConEscape);
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.removeEventListener("keydown", cerrarConEscape);
-    };
-  }, [mostrarModal]);
-
-  /* =====================================================
-     COPIAR NÚMERO DE EVENTO
-  ===================================================== */
-
-  const copiarNumeroEvento = async () => {
-    try {
-      await navigator.clipboard.writeText(
-        DATOS_REGALOS.numeroEvento
-      );
-
-      setNumeroCopiado(true);
-
-      window.setTimeout(() => {
-        setNumeroCopiado(false);
-      }, 2200);
-    } catch (error) {
-      console.error(
-        "No se pudo copiar el número de evento:",
-        error
-      );
-    }
-  };
-
   return (
-    <>
+    <motion.section
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{
+        once: true,
+        amount: 0.1,
+      }}
+      className="
+        relative
+        flex
+        min-h-[1080px]
+        w-full
+        items-center
+        justify-center
+        overflow-hidden
+        bg-[#EAD2D6]
+        px-[19%]
+        py-24
+        sm:min-h-[1180px]
+        sm:px-[20%]
+        sm:py-28
+        md:min-h-[1050px]
+        md:px-[18%]
+        lg:min-h-[1100px]
+        lg:px-[22%]
+        lg:py-32
+      "
+    >
       {/* =================================================
-          SECCIÓN PRINCIPAL
+          MARCO FLORAL
       ================================================= */}
 
-      <motion.section
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
+      <motion.img
+        src={DATOS_REGALOS.imagenFlores}
+        alt=""
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          z-0
+          h-full
+          w-full
+          select-none
+          object-fill
+        "
+        initial={{
+          opacity: 0,
+          scale: 1.04,
+        }}
+        whileInView={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{
+          duration: 1.4,
+          ease: [0.22, 1, 0.36, 1],
+        }}
         viewport={{
           once: true,
-          amount: 0.12,
         }}
+      />
+
+      {/* =================================================
+          CONTENIDO CENTRAL
+      ================================================= */}
+
+      <div
         className="
           relative
-          flex w-full
+          z-10
+          mx-auto
+          flex
+          w-full
+          max-w-[570px]
+          flex-col
           items-center
-          justify-center
-          overflow-hidden
-          px-4 py-20
-          sm:px-6 sm:py-24
-          lg:px-10 lg:py-32
+          text-center
         "
-        style={{
-          background: `
-            radial-gradient(
-              circle at top left,
-              rgba(122,24,56,0.11),
-              transparent 27%
-            ),
-            radial-gradient(
-              circle at bottom right,
-              rgba(213,183,106,0.17),
-              transparent 30%
-            ),
-            linear-gradient(
-              145deg,
-              #fffafa 0%,
-              #f8edef 46%,
-              #ead7dc 100%
-            )
-          `,
-        }}
       >
-        {/* GLOW VINO */}
+        {/* ORNAMENTO SUPERIOR */}
 
         <motion.div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute -left-36 -top-40
-            h-[380px] w-[380px]
-            rounded-full
-            bg-[#7A1838]/10
-            blur-3xl
-            sm:h-[500px] sm:w-[500px]
-          "
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.12, 0.25, 0.12],
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
           }}
           transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
+            duration: 0.8,
           }}
-        />
-
-        {/* GLOW DORADO */}
-
-        <motion.div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute -bottom-40 -right-36
-            h-[390px] w-[390px]
-            rounded-full
-            bg-[#D5B76A]/16
-            blur-3xl
-            sm:h-[520px] sm:w-[520px]
-          "
-          animate={{
-            scale: [1.08, 1, 1.08],
-            opacity: [0.12, 0.24, 0.12],
-          }}
-          transition={{
-            duration: 9,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* TEXTURA */}
-
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute inset-0
-            opacity-[0.025]
-          "
-          style={{
-            backgroundImage: `
-              repeating-linear-gradient(
-                45deg,
-                rgba(91,16,43,0.15) 0px,
-                rgba(91,16,43,0.15) 1px,
-                transparent 1px,
-                transparent 7px
-              )
-            `,
-          }}
-        />
-
-        {/* DESTELLOS */}
-
-        <motion.span
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute left-[9%] top-[18%]
-            text-lg text-[#D5B76A]/65
-          "
-          animate={{
-            opacity: [0.25, 1, 0.25],
-            scale: [0.8, 1.2, 0.8],
-            rotate: [0, 35, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          ✦
-        </motion.span>
-
-        <motion.span
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute right-[9%] top-[40%]
-            text-sm text-[#7A1838]/45
-          "
-          animate={{
-            opacity: [0.2, 0.85, 0.2],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          ✧
-        </motion.span>
-
-        {/* =================================================
-            TARJETA PRINCIPAL
-        ================================================= */}
-
-        <motion.div
-          whileHover={{
-            y: -5,
-          }}
-          transition={{
-            duration: 0.35,
+          viewport={{
+            once: true,
           }}
           className="
-            relative z-10
-            w-full max-w-3xl
-            overflow-hidden
-            rounded-[30px]
-            border border-white/70
-            bg-white/55
-            px-5 py-12
-            text-center
-            shadow-[0_26px_70px_rgba(84,17,42,0.14)]
-            backdrop-blur-xl
-            sm:rounded-[38px]
-            sm:px-10 sm:py-16
-            md:px-16
+            flex
+            items-center
+            justify-center
+            gap-3
+            sm:gap-5
           "
         >
-          {/* GLOW INTERIOR */}
-
-          <div
-            aria-hidden="true"
+          <span
             className="
-              pointer-events-none
-              absolute inset-0
-              bg-gradient-to-br
-              from-white/85
-              via-transparent
-              to-[#7A1838]/8
+              h-px
+              w-7
+              bg-[#B89058]
+              sm:w-14
             "
           />
 
-          {/* BRILLO */}
-
-          <motion.div
-            aria-hidden="true"
+          <motion.span
             className="
-              pointer-events-none
-              absolute top-0
-              h-full w-32
-              -skew-x-12
-              bg-gradient-to-r
-              from-transparent
-              via-white/35
-              to-transparent
+              text-base
+              text-[#B89058]
+              sm:text-lg
             "
             animate={{
-              left: ["-45%", "135%"],
+              rotate: [0, 8, -8, 0],
+              scale: [1, 1.15, 1],
             }}
             transition={{
               duration: 5,
               repeat: Infinity,
-              repeatDelay: 2,
               ease: "easeInOut",
             }}
-          />
+          >
+            ✦
+          </motion.span>
 
-          {/* BORDE INTERIOR */}
-
-          <div
-            aria-hidden="true"
+          <span
             className="
-              pointer-events-none
-              absolute inset-[8px]
-              rounded-[22px]
-              border border-white/45
-              sm:inset-[11px]
-              sm:rounded-[29px]
+              h-px
+              w-7
+              bg-[#B89058]
+              sm:w-14
             "
           />
+        </motion.div>
 
-          <div className="relative z-10">
-            {/* ETIQUETA */}
+        {/* ETIQUETA */}
 
-            <div
-              className="
-                flex items-center
-                justify-center
-                gap-3
-                sm:gap-5
-              "
-            >
-              <div
-                className="
-                  h-px w-8
-                  bg-gradient-to-r
-                  from-transparent to-[#D5B76A]
-                  sm:w-16
-                "
-              />
+        <motion.p
+          initial={{
+            opacity: 0,
+            y: 15,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-5
+            text-[9px]
+            font-semibold
+            uppercase
+            tracking-[0.25em]
+            text-[#70465A]
+            sm:text-[11px]
+            sm:tracking-[0.4em]
+          "
+        >
+          Un detalle especial
+        </motion.p>
 
-              <motion.p
-                className="
-                  whitespace-nowrap
-                  text-[9px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.28em]
-                  text-[#7A1838]
-                  sm:text-[11px]
-                  sm:tracking-[0.42em]
-                "
-                animate={{
-                  opacity: [0.72, 1, 0.72],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                Un detalle especial
-              </motion.p>
+        {/* TÍTULO */}
 
-              <div
-                className="
-                  h-px w-8
-                  bg-gradient-to-l
-                  from-transparent to-[#D5B76A]
-                  sm:w-16
-                "
-              />
-            </div>
+        <motion.h2
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.9,
+            delay: 0.15,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-3
+            font-cursiveDancing
+            text-[43px]
+            leading-[1.05]
+            text-[#70465A]
+            sm:text-[58px]
+            md:text-[68px]
+          "
+        >
+          Sugerencia de regalo
+        </motion.h2>
 
-            {/* ÍCONO */}
+        {/* MENSAJE */}
 
-            <motion.div
-              className="
-                mx-auto mt-7
-                flex h-20 w-20
-                items-center justify-center
-                rounded-full
-                border border-[#D5B76A]/35
-                bg-white/70
-                shadow-[0_14px_35px_rgba(84,17,42,0.10)]
-                sm:h-24 sm:w-24
-              "
-              animate={{
-                y: [0, -4, 0],
-                rotate: [0, 2, -2, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <img
-                src={DATOS_REGALOS.imagenRegalo}
-                alt="Regalo para los XV años de Carla"
-                className="
-                  h-14 w-14
-                  object-contain
-                  sm:h-16 sm:w-16
-                "
-              />
-            </motion.div>
+        <motion.p
+          initial={{
+            opacity: 0,
+            y: 18,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.9,
+            delay: 0.25,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-6
+            max-w-lg
+            font-playfair
+            text-[13px]
+            leading-[1.8]
+            text-[#725563]
+            sm:text-[16px]
+            md:text-[17px]
+          "
+        >
+          Lo más importante para mí es que puedas celebrar este día tan
+          especial conmigo, pero si deseas hacerme un obsequio, te dejo
+          las siguientes opciones:
+        </motion.p>
 
-            {/* TÍTULO */}
+        {/* ORNAMENTO CENTRAL */}
 
-            <motion.h2
-              initial={{
-                opacity: 0,
-                y: 25,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.9,
-                delay: 0.15,
-              }}
-              viewport={{ once: true }}
-              className="
-                mt-7
-                font-cursiveDancing
-                text-[50px]
-                leading-[0.95]
-                sm:text-[66px]
-                md:text-[80px]
-              "
-              style={{
-                background: `
-                  linear-gradient(
-                    180deg,
-                    #9A3155 0%,
-                    #7A1838 45%,
-                    #4A0E23 100%
-                  )
-                `,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter:
-                  "drop-shadow(0 8px 18px rgba(122,24,56,0.13))",
-              }}
-            >
-              Regalos
-            </motion.h2>
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.3,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            my-6
+            flex
+            items-center
+            justify-center
+            gap-3
+          "
+        >
+          <span className="h-px w-10 bg-[#B89058]" />
+          <span className="text-sm text-[#B89058]">✦</span>
+          <span className="h-px w-10 bg-[#B89058]" />
+        </motion.div>
 
-            {/* ORNAMENTO */}
+        {/* SUBTÍTULO */}
 
-            <motion.div
-              className="
-                my-7 flex
-                items-center justify-center
-                sm:my-9
-              "
-              animate={{
-                opacity: [0.72, 1, 0.72],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <motion.div
-                className="h-px"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, rgba(181,143,63,0.8))",
-                }}
-                animate={{
-                  width: ["45px", "80px", "45px"],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
+        <motion.h3
+          initial={{
+            opacity: 0,
+            y: 15,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.35,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            font-cursiveDancing
+            text-[38px]
+            leading-none
+            text-[#70465A]
+            sm:text-[48px]
+          "
+        >
+          Regalos
+        </motion.h3>
 
-              <motion.span
-                className="mx-4 text-lg text-[#D5B76A]"
-                animate={{
-                  rotate: [0, 8, -8, 0],
-                  scale: [1, 1.12, 1],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                ✦
-              </motion.span>
+        {/* =================================================
+            LLUVIA DE SOBRES
+        ================================================= */}
 
-              <motion.div
-                className="h-px"
-                style={{
-                  background:
-                    "linear-gradient(to left, transparent, rgba(181,143,63,0.8))",
-                }}
-                animate={{
-                  width: ["45px", "80px", "45px"],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.85,
+            delay: 0.4,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-7
+            w-full
+            rounded-[24px]
+            border
+            border-[#B89058]/35
+            bg-[#FFF9F5]
+            px-4
+            py-5
+            shadow-[0_14px_32px_rgba(112,70,90,0.12)]
+            sm:px-6
+            sm:py-6
+          "
+        >
+          <div
+            className="
+              mx-auto
+              flex
+              h-12
+              w-12
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-[#B89058]/35
+              bg-[#EAD2D6]
+              text-[#70465A]
+            "
+          >
+            <Mail size={24} strokeWidth={1.5} />
+          </div>
 
-            {/* MENSAJE */}
+          <h4
+            className="
+              mt-3
+              font-playfair
+              text-[18px]
+              font-semibold
+              text-[#70465A]
+              sm:text-[21px]
+            "
+          >
+            Lluvia de sobres
+          </h4>
 
-            <motion.p
-              initial={{
-                opacity: 0,
-                y: 18,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.9,
-                delay: 0.25,
-              }}
-              viewport={{ once: true }}
-              className="
-                mx-auto
-                max-w-xl
-                font-playfair
-                text-[15px]
-                leading-relaxed
-                text-[#72505D]
-                sm:text-[17px]
-                md:text-[18px]
-              "
-            >
-              {DATOS_REGALOS.mensaje}
-            </motion.p>
+          <p
+            className="
+              mx-auto
+              mt-2
+              max-w-sm
+              text-[12px]
+              leading-relaxed
+              text-[#725563]
+              sm:text-sm
+            "
+          >
+            Si lo deseas, puedes entregarme tu obsequio en un sobre
+            durante la celebración.
+          </p>
+        </motion.div>
 
-            <motion.p
-              initial={{
-                opacity: 0,
-              }}
-              whileInView={{
-                opacity: 1,
-              }}
-              transition={{
-                duration: 1,
-                delay: 0.35,
-              }}
-              viewport={{ once: true }}
-              className="
-                mx-auto mt-4
-                max-w-lg
-                font-cursiveDancing
-                text-[25px]
-                leading-relaxed
-                text-[#7A1838]
-                sm:text-[30px]
-              "
-            >
-              Gracias por formar parte de este momento
-            </motion.p>
+        {/* =================================================
+            TRANSFERENCIA
+        ================================================= */}
 
-            {/* BOTÓN */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.85,
+            delay: 0.5,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-4
+            w-full
+            rounded-[24px]
+            border
+            border-[#B89058]/35
+            bg-[#FFF9F5]
+            px-4
+            py-6
+            shadow-[0_14px_32px_rgba(112,70,90,0.12)]
+            sm:px-6
+            sm:py-7
+          "
+        >
+          <div
+            className="
+              mx-auto
+              flex
+              h-12
+              w-12
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-[#B89058]/35
+              bg-[#EAD2D6]
+              text-[#70465A]
+            "
+          >
+            <CreditCard size={24} strokeWidth={1.5} />
+          </div>
 
-            <motion.button
-              type="button"
-              onClick={() => setMostrarModal(true)}
-              className="
-                relative
-                mt-9
-                inline-flex
-                min-h-[50px]
-                w-full max-w-[300px]
-                items-center
-                justify-center
-                overflow-hidden
-                rounded-full
-                px-7 py-4
-                text-white
-                outline-none
-                focus-visible:ring-2
-                focus-visible:ring-[#D5B76A]
-                focus-visible:ring-offset-2
-                sm:mt-11
-              "
-              style={{
-                background: `
-                  linear-gradient(
-                    135deg,
-                    #8D2447 0%,
-                    #6A1735 52%,
-                    #451022 100%
-                  )
-                `,
-                boxShadow: `
-                  0 16px 34px rgba(90,16,43,0.25),
-                  inset 0 1px 0 rgba(255,255,255,0.23)
-                `,
-              }}
-              whileHover={{
-                scale: 1.045,
-                y: -2,
-              }}
-              whileTap={{
-                scale: 0.97,
-              }}
-            >
-              <motion.span
-                aria-hidden="true"
-                className="
-                  absolute top-0
-                  h-full w-[80%]
-                  -skew-x-12
-                  bg-white/20
-                "
-                animate={{
-                  left: ["-120%", "150%"],
-                }}
-                transition={{
-                  duration: 3.2,
-                  repeat: Infinity,
-                  repeatDelay: 1.3,
-                  ease: "easeInOut",
-                }}
-              />
+          <p
+            className="
+              mt-3
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.22em]
+              text-[#B89058]
+              sm:text-[10px]
+            "
+          >
+            Transferencia
+          </p>
 
-              <span
-                className="
-                  relative z-10
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.2em]
-                  sm:text-[11px]
-                  sm:tracking-[0.28em]
-                "
-              >
-                Ver mesa de regalos
-              </span>
+          <h4
+            className="
+              mt-2
+              font-playfair
+              text-[19px]
+              font-semibold
+              text-[#70465A]
+              sm:text-[22px]
+            "
+          >
+            {DATOS_REGALOS.banco}
+          </h4>
 
-              <span className="relative z-10 ml-2">
-                🎁
-              </span>
-            </motion.button>
+          <p
+            className="
+              mt-1
+              font-cursiveDancing
+              text-[25px]
+              text-[#70465A]
+              sm:text-[29px]
+            "
+          >
+            {DATOS_REGALOS.titular}
+          </p>
+
+          <div className="mt-5 space-y-3">
+            <DatoBancario
+              etiqueta="Número de cuenta"
+              valor={DATOS_REGALOS.numeroCuenta}
+            />
+
+            <DatoBancario
+              etiqueta="CLABE"
+              valor={DATOS_REGALOS.clabe}
+            />
           </div>
         </motion.div>
-      </motion.section>
 
-      {/* =================================================
-          MODAL DE LIVERPOOL
-      ================================================= */}
+        {/* MENSAJE FINAL */}
 
-      <AnimatePresence>
-        {mostrarModal && (
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="titulo-mesa-regalos"
-            className="
-              fixed inset-0 z-[100]
-              flex items-center
-              justify-center
-              overflow-y-auto
-              bg-[#17040b]/75
-              px-4 py-8
-              backdrop-blur-md
-              sm:px-6
-            "
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            onMouseDown={(event) => {
-              if (event.target === event.currentTarget) {
-                setMostrarModal(false);
-              }
-            }}
-          >
-            <motion.div
-              initial={{
-                scale: 0.88,
-                opacity: 0,
-                y: 45,
-              }}
-              animate={{
-                scale: 1,
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                scale: 0.88,
-                opacity: 0,
-                y: 45,
-              }}
-              transition={{
-                duration: 0.45,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="
-                relative
-                my-auto
-                w-full max-w-md
-                overflow-hidden
-                rounded-[28px]
-                border border-white/20
-                px-5 py-10
-                text-center
-                text-white
-                shadow-[0_28px_90px_rgba(0,0,0,0.42)]
-                sm:rounded-[36px]
-                sm:px-8 sm:py-12
-              "
-              style={{
-                background: `
-                  radial-gradient(
-                    circle at top right,
-                    rgba(255,255,255,0.13),
-                    transparent 28%
-                  ),
-                  linear-gradient(
-                    145deg,
-                    #8D2447 0%,
-                    #64142F 48%,
-                    #350817 100%
-                  )
-                `,
-              }}
-            >
-              {/* GLOW */}
+        <motion.p
+          initial={{
+            opacity: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
+          transition={{
+            duration: 1,
+            delay: 0.6,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-7
+            max-w-sm
+            font-cursiveDancing
+            text-[23px]
+            leading-relaxed
+            text-[#70465A]
+            sm:text-[28px]
+          "
+        >
+          Gracias por compartir conmigo este momento tan especial
+        </motion.p>
 
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute -right-20 -top-20
-                  h-60 w-60
-                  rounded-full
-                  bg-[#D5B76A]/20
-                  blur-3xl
-                "
-              />
+        {/* ORNAMENTO FINAL */}
 
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute -bottom-24 -left-20
-                  h-60 w-60
-                  rounded-full
-                  bg-white/10
-                  blur-3xl
-                "
-              />
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.65,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+            mt-5
+            flex
+            items-center
+            justify-center
+            gap-3
+          "
+        >
+          <span className="h-px w-8 bg-[#B89058]" />
 
-              {/* BRILLO ANIMADO */}
+          <Gift
+            size={15}
+            strokeWidth={1.6}
+            className="text-[#B89058]"
+          />
 
-              <motion.div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute top-0
-                  h-full w-32
-                  -skew-x-12
-                  bg-gradient-to-r
-                  from-transparent
-                  via-white/20
-                  to-transparent
-                "
-                animate={{
-                  left: ["-45%", "140%"],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatDelay: 1.5,
-                  ease: "easeInOut",
-                }}
-              />
-
-              {/* CERRAR */}
-
-              <motion.button
-                type="button"
-                onClick={() => setMostrarModal(false)}
-                aria-label="Cerrar mesa de regalos"
-                className="
-                  absolute right-4 top-4 z-20
-                  flex h-10 w-10
-                  items-center justify-center
-                  rounded-full
-                  border border-white/15
-                  bg-white/10
-                  text-lg text-white/80
-                  backdrop-blur-md
-                  transition-colors
-                  hover:bg-white
-                  hover:text-[#7A1838]
-                  sm:right-5 sm:top-5
-                "
-                whileHover={{
-                  rotate: 90,
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.92,
-                }}
-              >
-                ✕
-              </motion.button>
-
-              {/* CONTENIDO */}
-
-              <div className="relative z-10">
-                <motion.div
-                  className="
-                    mx-auto
-                    flex h-16 w-16
-                    items-center justify-center
-                    rounded-full
-                    border border-[#D5B76A]/35
-                    bg-white/10
-                    text-3xl
-                    shadow-[0_12px_30px_rgba(0,0,0,0.15)]
-                    backdrop-blur-lg
-                  "
-                  animate={{
-                    y: [0, -3, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  🎁
-                </motion.div>
-
-                <p
-                  className="
-                    mt-6
-                    text-[9px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.28em]
-                    text-[#EBD69D]
-                    sm:text-[10px]
-                    sm:tracking-[0.4em]
-                  "
-                >
-                  Mesa de regalos
-                </p>
-
-                <h2
-                  id="titulo-mesa-regalos"
-                  className="
-                    mt-3
-                    font-playfair
-                    text-[32px]
-                    leading-tight
-                    text-white
-                    sm:text-[40px]
-                  "
-                >
-                  Liverpool
-                </h2>
-
-                <div
-                  className="
-                    mx-auto my-6
-                    h-px w-28
-                    bg-gradient-to-r
-                    from-transparent
-                    via-[#D5B76A]
-                    to-transparent
-                  "
-                />
-
-                <p
-                  className="
-                    text-[10px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.24em]
-                    text-white/60
-                  "
-                >
-                  Número de evento
-                </p>
-
-                {/* NÚMERO DE EVENTO */}
-
-                <button
-                  type="button"
-                  onClick={copiarNumeroEvento}
-                  className="
-                    group
-                    mt-4 w-full
-                    rounded-2xl
-                    border border-white/15
-                    bg-white/10
-                    px-4 py-5
-                    shadow-inner
-                    backdrop-blur-lg
-                    transition
-                    hover:bg-white/15
-                  "
-                >
-                  <span
-                    className="
-                      block
-                      break-all
-                      font-mono
-                      text-[25px]
-                      font-semibold
-                      tracking-[0.15em]
-                      text-[#F3D995]
-                      sm:text-[30px]
-                      sm:tracking-[0.22em]
-                    "
-                  >
-                    {DATOS_REGALOS.numeroEvento}
-                  </span>
-
-                  <span
-                    className="
-                      mt-2 block
-                      text-[9px]
-                      uppercase
-                      tracking-[0.17em]
-                      text-white/55
-                    "
-                  >
-                    {numeroCopiado
-                      ? "Número copiado"
-                      : "Toca para copiar"}
-                  </span>
-                </button>
-
-                {/* DESCRIPCIÓN */}
-
-                <p
-                  className="
-                    mx-auto mt-6
-                    max-w-sm
-                    text-[13px]
-                    leading-relaxed
-                    text-white/72
-                    sm:text-sm
-                  "
-                >
-                  {DATOS_REGALOS.mensajeLiverpool}
-                </p>
-
-                {/* BOTÓN LIVERPOOL */}
-
-                <motion.a
-                  href={linkLiverpool}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    relative
-                    mt-8
-                    inline-flex
-                    min-h-[48px]
-                    w-full
-                    items-center
-                    justify-center
-                    overflow-hidden
-                    rounded-full
-                    bg-white
-                    px-6 py-3.5
-                    text-[#64142F]
-                    shadow-[0_14px_32px_rgba(0,0,0,0.18)]
-                  "
-                  whileHover={{
-                    scale: 1.04,
-                    y: -2,
-                  }}
-                  whileTap={{
-                    scale: 0.97,
-                  }}
-                >
-                  <motion.span
-                    aria-hidden="true"
-                    className="
-                      absolute top-0
-                      h-full w-[80%]
-                      -skew-x-12
-                      bg-[#D5B76A]/20
-                    "
-                    animate={{
-                      left: ["-120%", "150%"],
-                    }}
-                    transition={{
-                      duration: 3.2,
-                      repeat: Infinity,
-                      repeatDelay: 1.4,
-                      ease: "easeInOut",
-                    }}
-                  />
-
-                  <span
-                    className="
-                      relative z-10
-                      text-[10px]
-                      font-semibold
-                      uppercase
-                      tracking-[0.2em]
-                      sm:text-[11px]
-                      sm:tracking-[0.28em]
-                    "
-                  >
-                    Ir a Liverpool
-                  </span>
-                </motion.a>
-
-                <p
-                  className="
-                    mt-6
-                    font-cursiveDancing
-                    text-[24px]
-                    leading-relaxed
-                    text-[#F1D89A]
-                    sm:text-[28px]
-                  "
-                >
-                  Gracias por tu cariño y por acompañarme
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          <span className="h-px w-8 bg-[#B89058]" />
+        </motion.div>
+      </div>
+    </motion.section>
   );
 };
 

@@ -4,57 +4,144 @@ import Countdown from "./componentes-encabezado/encabeza-cuenta";
 import GlitterIntro from "./componentes-encabezado/gliter";
 
 /* =====================================================
-   CONFIGURACIÓN GENERAL DEL DEMO
+   DATOS DE LA INVITACIÓN
 ===================================================== */
 
 const DATOS_XV = {
-  nombre: "Carla Durán",
-  inicial: "C",
-  fechaTexto: "13 • Marzo • 2027",
-  fechaCuentaRegresiva: "2027-03-13T17:00:00-06:00",
+  nombre: "Mia Selene",
+  inicial: "M",
+  fechaTexto: "30 • Octubre • 2026",
+  fechaCuentaRegresiva: "2026-10-30T17:00:00-06:00",
 
-  // Desktop
-  imagenDesktop: "/xv-desktop.jpg",
+  imagenDesktop: "/portada.jpeg",
+  imagenMobile: "/portada.jpeg",
 
-  // Celular
-  imagenMobile: "/xv-mobile.jpg",
-
-  cancion: "/TylerShaw.mp3",
+  cancion: "/musica.mp3",
 };
 
 /* =====================================================
-   TEMA DEL SOBRE — XV AÑOS VINO LUXURY
+   PALETA DE COLORES
+===================================================== */
+
+const colores = {
+  rosaClaro: "#F8E9E8",
+  rosaPalo: "#D7A7AE",
+  malva: "#A56F85",
+  malvaOscuro: "#70465A",
+  ciruela: "#452735",
+  crema: "#FFF9F5",
+  dorado: "#C7A56A",
+  doradoClaro: "#EBD5A5",
+};
+
+/* =====================================================
+   TEMA DEL SOBRE
 ===================================================== */
 
 const envelopeTheme = {
   body: `
     linear-gradient(
       145deg,
-      #7a1838 0%,
-      #5b102b 42%,
-      #310817 100%
+      #d9aeb5 0%,
+      #bb8496 46%,
+      #8c5a70 100%
     )
   `,
 
   flap: `
     linear-gradient(
       180deg,
-      #8d2447 0%,
-      #62132f 48%,
-      #3a091c 100%
+      #e5bdc1 0%,
+      #c58d9d 48%,
+      #956178 100%
     )
   `,
 
   seal: `
     radial-gradient(
       circle at 30% 25%,
-      #fff9e9 0%,
-      #eedba5 18%,
-      #d5b76a 42%,
-      #a77c25 70%,
-      #664408 100%
+      #fffaf0 0%,
+      #f0dcae 18%,
+      #d4b476 45%,
+      #a47b3e 72%,
+      #6d4b1d 100%
     )
   `,
+};
+
+/* =====================================================
+   DECORACIÓN BOTÁNICA
+===================================================== */
+
+const RamaDecorativa = ({ posicion }) => {
+  const esIzquierda = posicion === "izquierda";
+
+  return (
+    <div
+      aria-hidden="true"
+      className={`
+        pointer-events-none absolute
+        ${esIzquierda ? "-left-14 top-5" : "-right-14 bottom-4"}
+        h-52 w-52
+        opacity-35
+        sm:h-72 sm:w-72
+      `}
+      style={{
+        transform: esIzquierda ? "rotate(-20deg)" : "rotate(160deg)",
+      }}
+    >
+      <div
+        className="
+          absolute left-1/2 top-2
+          h-[90%] w-[2px]
+          origin-bottom
+          rotate-[-36deg]
+          rounded-full
+        "
+        style={{
+          background: `linear-gradient(to top, ${colores.malvaOscuro}, transparent)`,
+        }}
+      />
+
+      {[12, 30, 48, 66].map((top, index) => (
+        <React.Fragment key={top}>
+          <div
+            className="
+              absolute h-8 w-16
+              rounded-[100%_0_100%_0]
+            "
+            style={{
+              left: `${36 + index * 5}%`,
+              top: `${top}%`,
+              background: `linear-gradient(
+                145deg,
+                rgba(165,111,133,0.85),
+                rgba(215,167,174,0.35)
+              )`,
+              transform: `rotate(${28 + index * 5}deg)`,
+            }}
+          />
+
+          <div
+            className="
+              absolute h-7 w-14
+              rounded-[0_100%_0_100%]
+            "
+            style={{
+              right: `${38 - index * 4}%`,
+              top: `${top + 8}%`,
+              background: `linear-gradient(
+                145deg,
+                rgba(112,70,90,0.75),
+                rgba(215,167,174,0.3)
+              )`,
+              transform: `rotate(${-28 - index * 4}deg)`,
+            }}
+          />
+        </React.Fragment>
+      ))}
+    </div>
+  );
 };
 
 /* =====================================================
@@ -68,16 +155,14 @@ export default function Portada() {
   const [introActiva, setIntroActiva] = useState(true);
   const [mostrarContenido, setMostrarContenido] = useState(false);
   const [abrirSobre, setAbrirSobre] = useState(false);
-  const [experienciaIniciada, setExperienciaIniciada] = useState(false);
+  const [experienciaIniciada, setExperienciaIniciada] =
+    useState(false);
 
   const [invitado, setInvitado] = useState("Invitado especial");
   const [pases, setPases] = useState(1);
 
   /* =====================================================
-     OBTENER NOMBRE Y PASES DESDE LA URL
-
-     Ejemplo:
-     /?nombre=Familia%20López&pases=4
+     LEER INVITADO Y PASES DESDE LA URL
   ===================================================== */
 
   useEffect(() => {
@@ -106,7 +191,7 @@ export default function Portada() {
   }, []);
 
   /* =====================================================
-     ABRIR SOBRE E INICIAR AUDIO
+     ABRIR SOBRE E INICIAR MÚSICA
   ===================================================== */
 
   const iniciarExperiencia = () => {
@@ -123,7 +208,7 @@ export default function Portada() {
           await audioRef.current.play();
         } catch (error) {
           console.warn(
-            "El navegador bloqueó la reproducción automática del audio:",
+            "El navegador bloqueó la reproducción automática:",
             error
           );
         }
@@ -135,26 +220,29 @@ export default function Portada() {
   };
 
   const textoLugares = pases === 1 ? "LUGAR" : "LUGARES";
-  const textoReservado = pases === 1 ? "HEMOS RESERVADO" : "HEMOS RESERVADO";
 
   return (
-    <main className="relative w-full overflow-x-hidden bg-[#fffafb] text-[#31101c]">
-      {/* =================================================
-          AUDIO DE FONDO
-      ================================================= */}
-
+    <main
+      className="
+        relative
+        w-full
+        overflow-x-hidden
+        bg-[#FFF9F5]
+        text-[#452735]
+      "
+    >
       <audio ref={audioRef} loop preload="auto">
         <source src={DATOS_XV.cancion} type="audio/mpeg" />
       </audio>
 
       {/* =================================================
-          INTRODUCCIÓN DEL SOBRE
+          INTRODUCCIÓN
       ================================================= */}
 
       <AnimatePresence mode="wait">
         {introActiva && (
           <motion.section
-            key="intro-xv"
+            key="intro-mia-selene"
             className="
               fixed inset-0 z-50
               min-h-[100dvh]
@@ -163,20 +251,25 @@ export default function Portada() {
             style={{
               background: `
                 radial-gradient(
-                  circle at 15% 10%,
-                  rgba(255,255,255,0.10),
-                  transparent 24%
+                  circle at 50% 18%,
+                  rgba(255,249,245,0.18),
+                  transparent 30%
                 ),
                 radial-gradient(
-                  circle at 85% 90%,
-                  rgba(195,139,159,0.12),
+                  circle at 10% 85%,
+                  rgba(235,213,165,0.14),
                   transparent 28%
                 ),
+                radial-gradient(
+                  circle at 90% 75%,
+                  rgba(215,167,174,0.2),
+                  transparent 30%
+                ),
                 linear-gradient(
-                  145deg,
-                  #711936 0%,
-                  #4c1027 44%,
-                  #260712 100%
+                  150deg,
+                  #b98194 0%,
+                  #8b5a70 45%,
+                  #4c2b3a 100%
                 )
               `,
             }}
@@ -189,16 +282,21 @@ export default function Portada() {
               },
             }}
           >
-            <GlitterIntro/>
-            {/* BRILLOS DECORATIVOS */}
+            <GlitterIntro />
+
+            <RamaDecorativa posicion="izquierda" />
+            <RamaDecorativa posicion="derecha" />
+
+            {/* LUCES */}
 
             <div
               aria-hidden="true"
               className="
                 pointer-events-none
-                absolute left-[8%] top-[12%]
+                absolute left-[10%] top-[14%]
                 h-1.5 w-1.5 rounded-full
-                bg-white/70 blur-[0.5px]
+                bg-[#F8E9E8]
+                shadow-[0_0_16px_rgba(248,233,232,0.9)]
               "
             />
 
@@ -206,10 +304,10 @@ export default function Portada() {
               aria-hidden="true"
               className="
                 pointer-events-none
-                absolute right-[12%] top-[20%]
+                absolute right-[13%] top-[23%]
                 h-1 w-1 rounded-full
-                bg-[#f2dba1]
-                shadow-[0_0_14px_rgba(242,219,161,0.9)]
+                bg-[#EBD5A5]
+                shadow-[0_0_16px_rgba(235,213,165,0.95)]
               "
             />
 
@@ -217,19 +315,18 @@ export default function Portada() {
               aria-hidden="true"
               className="
                 pointer-events-none
-                absolute bottom-[20%] left-[15%]
+                absolute bottom-[18%] left-[18%]
                 h-1 w-1 rounded-full
-                bg-white/60
-                shadow-[0_0_12px_rgba(255,255,255,0.7)]
+                bg-white/80
+                shadow-[0_0_14px_rgba(255,255,255,0.85)]
               "
             />
-
-            {/* CONTENEDOR RESPONSIVE */}
 
             <div
               className="
                 relative z-10
-                flex min-h-[100dvh] w-full
+                flex min-h-[100dvh]
+                w-full
                 flex-col items-center justify-center
                 px-4 py-10
                 text-center
@@ -237,9 +334,7 @@ export default function Portada() {
                 lg:px-10 lg:py-16
               "
             >
-              {/* =========================================
-                  ENCABEZADO
-              ========================================= */}
+              {/* ENCABEZADO */}
 
               <motion.div
                 className="relative mb-8 w-full max-w-3xl sm:mb-10"
@@ -247,14 +342,12 @@ export default function Portada() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9 }}
               >
-                {/* ETIQUETA SUPERIOR */}
-
                 <div className="mb-4 flex items-center justify-center gap-3 sm:gap-5">
                   <div
                     className="
                       h-px w-9
                       bg-gradient-to-r
-                      from-transparent to-[#dfc17b]
+                      from-transparent to-[#EBD5A5]
                       sm:w-16
                     "
                   />
@@ -264,12 +357,9 @@ export default function Portada() {
                       whitespace-nowrap
                       text-[9px] font-light uppercase
                       tracking-[0.32em]
+                      text-[#FFF4F2]
                       sm:text-[11px] sm:tracking-[0.5em]
                     "
-                    style={{
-                      color: "#f0dfbd",
-                      textShadow: "0 2px 10px rgba(0,0,0,0.3)",
-                    }}
                   >
                     MIS XV AÑOS
                   </p>
@@ -278,13 +368,11 @@ export default function Portada() {
                     className="
                       h-px w-9
                       bg-gradient-to-l
-                      from-transparent to-[#dfc17b]
+                      from-transparent to-[#EBD5A5]
                       sm:w-16
                     "
                   />
                 </div>
-
-                {/* NOMBRE */}
 
                 <h1
                   className="
@@ -293,61 +381,30 @@ export default function Portada() {
                     break-words
                     px-2
                     font-cursiveDancing
-                    text-[48px]
+                    text-[54px]
                     leading-[0.92]
-                    sm:text-[68px]
-                    md:text-[88px]
-                    lg:text-[104px]
+                    sm:text-[74px]
+                    md:text-[94px]
+                    lg:text-[110px]
                   "
                   style={{
-                    background: `
-                      linear-gradient(
-                        180deg,
-                        #ffffff 0%,
-                        #fff8ed 26%,
-                        #ead9ae 57%,
-                        #c9a958 82%,
-                        #98701d 100%
-                      )
+                    color: colores.crema,
+                    textShadow: `
+                      0 4px 10px rgba(69,39,53,0.3),
+                      0 16px 35px rgba(45,20,31,0.28)
                     `,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    filter:
-                      "drop-shadow(0 8px 20px rgba(20,0,8,0.32))",
-                    letterSpacing: "0.01em",
                   }}
                 >
                   {DATOS_XV.nombre}
                 </h1>
 
-                {/* SUBTÍTULO */}
-
-                <p
-                  className="
-                    mt-3
-                    font-serif
-                    text-[12px]
-                    italic
-                    tracking-[0.12em]
-                    sm:mt-4 sm:text-[15px]
-                    md:text-[17px]
-                  "
-                  style={{
-                    color: "#f4e7df",
-                  }}
-                >
-                  Una noche para recordar por siempre
-                </p>
-
-                {/* FECHA */}
-
-                <div className="mt-5 flex flex-col items-center sm:mt-6">
+                <div className="mt-5 flex flex-col items-center">
                   <div
                     className="
-                      mb-4 h-px w-24
+                      mb-4 h-px w-28
                       bg-gradient-to-r
-                      from-transparent via-[#d7b568] to-transparent
-                      sm:w-32
+                      from-transparent via-[#EBD5A5] to-transparent
+                      sm:w-36
                     "
                   />
 
@@ -355,21 +412,18 @@ export default function Portada() {
                     className="
                       text-[10px] uppercase
                       tracking-[0.24em]
+                      text-[#FFF2EE]
                       sm:text-[13px] sm:tracking-[0.38em]
                     "
-                    style={{
-                      color: "#ead9c4",
-                      textShadow: "0 2px 8px rgba(0,0,0,0.28)",
-                    }}
                   >
                     {DATOS_XV.fechaTexto}
                   </p>
                 </div>
               </motion.div>
 
-              {/* =========================================
+              {/* =================================================
                   SOBRE
-              ========================================= */}
+              ================================================= */}
 
               <motion.button
                 type="button"
@@ -401,7 +455,7 @@ export default function Portada() {
                     ? undefined
                     : {
                         scale: 1.015,
-                        y: -3,
+                        y: -4,
                       }
                 }
                 whileTap={
@@ -412,14 +466,14 @@ export default function Portada() {
                       }
                 }
               >
-                {/* GLOW EXTERIOR */}
+                {/* RESPLANDOR */}
 
                 <div
                   className="
                     absolute inset-0
-                    scale-110 rounded-[28px]
-                    bg-[#d6b25d]/20
-                    opacity-70 blur-3xl
+                    scale-110 rounded-[30px]
+                    bg-[#F0C8CD]/25
+                    opacity-80 blur-3xl
                   "
                 />
 
@@ -431,12 +485,12 @@ export default function Portada() {
                     h-12 w-[72%]
                     -translate-x-1/2
                     rounded-full
-                    bg-black/35 blur-3xl
+                    bg-[#29131D]/35 blur-3xl
                     sm:-bottom-9 sm:h-16
                   "
                 />
 
-                {/* CUERPO */}
+                {/* CUERPO DEL SOBRE */}
 
                 <div
                   className="
@@ -451,70 +505,53 @@ export default function Portada() {
                     background: `
                       linear-gradient(
                         145deg,
-                        rgba(255,255,255,0.12),
-                        rgba(255,255,255,0.015)
+                        rgba(255,255,255,0.18),
+                        rgba(255,255,255,0.025)
                       ),
                       ${envelopeTheme.body}
                     `,
-                    borderColor: "rgba(255,232,238,0.22)",
+                    borderColor: "rgba(255,245,242,0.3)",
                     boxShadow: `
-                      0 35px 75px rgba(15,0,6,0.52),
-                      inset 0 1px 0 rgba(255,255,255,0.22),
-                      inset 0 -3px 14px rgba(20,0,8,0.42)
+                      0 35px 75px rgba(45,20,31,0.42),
+                      inset 0 1px 0 rgba(255,255,255,0.28),
+                      inset 0 -3px 14px rgba(69,39,53,0.3)
                     `,
                   }}
                 >
-                  {/* TEXTURA */}
-
                   <div
-                    className="absolute inset-0 opacity-[0.07]"
+                    className="absolute inset-0 opacity-[0.08]"
                     style={{
                       backgroundImage: `
                         repeating-linear-gradient(
                           45deg,
-                          rgba(255,255,255,0.18) 0px,
-                          rgba(255,255,255,0.18) 1px,
+                          rgba(255,255,255,0.2) 0px,
+                          rgba(255,255,255,0.2) 1px,
                           transparent 1px,
-                          transparent 6px
+                          transparent 7px
                         )
                       `,
                     }}
                   />
 
-                  {/* BRILLO SUPERIOR */}
-
                   <div
-                    className="absolute left-0 top-0 h-24 w-full opacity-30"
+                    className="absolute left-0 top-0 h-24 w-full opacity-40"
                     style={{
                       background:
-                        "linear-gradient(to bottom, rgba(255,255,255,0.34), transparent)",
-                    }}
-                  />
-
-                  {/* REFLEJO */}
-
-                  <div
-                    className="absolute left-0 top-0 h-full w-20 opacity-10"
-                    style={{
-                      background:
-                        "linear-gradient(to right, rgba(255,255,255,0.65), transparent)",
-                      transform: "skewX(-20deg)",
+                        "linear-gradient(to bottom, rgba(255,255,255,0.38), transparent)",
                     }}
                   />
                 </div>
-
-                {/* BORDE INTERNO */}
 
                 <div
                   className="
                     absolute inset-[7px]
                     rounded-[17px]
-                    border border-white/10
+                    border border-white/15
                     sm:inset-[9px] sm:rounded-[21px]
                   "
                 />
 
-                {/* TAPA */}
+                {/* TAPA DEL SOBRE */}
 
                 <motion.div
                   className="
@@ -527,14 +564,14 @@ export default function Portada() {
                     background: `
                       linear-gradient(
                         to bottom,
-                        rgba(255,255,255,0.18),
-                        rgba(255,255,255,0.015)
+                        rgba(255,255,255,0.2),
+                        rgba(255,255,255,0.02)
                       ),
                       ${envelopeTheme.flap}
                     `,
                     boxShadow: `
-                      0 25px 40px rgba(20,0,8,0.42),
-                      inset 0 2px 0 rgba(255,255,255,0.16)
+                      0 25px 40px rgba(45,20,31,0.35),
+                      inset 0 2px 0 rgba(255,255,255,0.2)
                     `,
                   }}
                   animate={
@@ -554,7 +591,7 @@ export default function Portada() {
                   }}
                 />
 
-                {/* CARTA INTERNA */}
+                {/* TARJETA INTERIOR */}
 
                 <motion.div
                   className="
@@ -565,26 +602,27 @@ export default function Portada() {
                     overflow-hidden
                     rounded-[15px]
                     px-3 py-4
-                    sm:rounded-[19px] sm:px-5 sm:py-6
+                    sm:rounded-[19px]
+                    sm:px-5 sm:py-6
                   "
                   style={{
                     background: `
                       radial-gradient(
                         circle at top,
                         rgba(255,255,255,0.95),
-                        transparent 42%
+                        transparent 45%
                       ),
                       linear-gradient(
                         180deg,
-                        #fffefe 0%,
-                        #fff7f8 55%,
-                        #f5e3e8 100%
+                        #fffdfb 0%,
+                        #faeeee 55%,
+                        #efd8dc 100%
                       )
                     `,
-                    border: "1px solid rgba(142,38,73,0.12)",
+                    border: "1px solid rgba(112,70,90,0.15)",
                     boxShadow: `
-                      0 12px 34px rgba(21,0,8,0.24),
-                      inset 0 1px 0 rgba(255,255,255,0.9)
+                      0 12px 34px rgba(45,20,31,0.24),
+                      inset 0 1px 0 rgba(255,255,255,0.95)
                     `,
                   }}
                   animate={
@@ -603,18 +641,14 @@ export default function Portada() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  {/* DECORACIÓN */}
-
                   <div
                     className="
-                      mt-0.5 h-[2px] w-12
+                      mt-0.5 h-[2px] w-14
                       bg-gradient-to-r
-                      from-transparent via-[#b99545] to-transparent
+                      from-transparent via-[#C7A56A] to-transparent
                       sm:w-16
                     "
                   />
-
-                  {/* TEXTO SUPERIOR */}
 
                   <p
                     className="
@@ -622,16 +656,12 @@ export default function Portada() {
                       text-center
                       text-[7px] uppercase
                       tracking-[0.23em]
+                      text-[#70465A]
                       sm:text-[10px] sm:tracking-[0.38em]
                     "
-                    style={{
-                      color: "#8b2447",
-                    }}
                   >
                     INVITACIÓN ESPECIAL
                   </p>
-
-                  {/* NOMBRE */}
 
                   <div className="flex flex-col items-center justify-center">
                     <span
@@ -640,11 +670,9 @@ export default function Portada() {
                         font-serif
                         text-[9px] uppercase
                         tracking-[0.2em]
-                        sm:mb-1 sm:text-[11px]
+                        text-[#A47B3E]
+                        sm:text-[11px]
                       "
-                      style={{
-                        color: "#a98035",
-                      }}
                     >
                       MIS XV AÑOS
                     </span>
@@ -655,19 +683,15 @@ export default function Portada() {
                         break-words
                         text-center
                         font-cursiveDancing
-                        text-[25px]
+                        text-[28px]
                         leading-none
-                        sm:text-[34px]
+                        text-[#70465A]
+                        sm:text-[38px]
                       "
-                      style={{
-                        color: "#651531",
-                      }}
                     >
-                      Carla Durán
+                      {DATOS_XV.nombre}
                     </h3>
                   </div>
-
-                  {/* TEXTO INFERIOR */}
 
                   <p
                     className="
@@ -675,11 +699,9 @@ export default function Portada() {
                       text-center
                       text-[7px] uppercase
                       tracking-[0.15em]
+                      text-[#9A7482]
                       sm:text-[9px] sm:tracking-[0.25em]
                     "
-                    style={{
-                      color: "#8c6672",
-                    }}
                   >
                     TOCA PARA ABRIR
                   </p>
@@ -716,17 +738,13 @@ export default function Portada() {
                       sm:h-28 sm:w-28
                     "
                   >
-                    {/* GLOW */}
-
                     <div
                       className="
                         absolute inset-0
                         scale-125 rounded-full
-                        bg-[#e0bd67]/30 blur-2xl
+                        bg-[#EBD5A5]/30 blur-2xl
                       "
                     />
-
-                    {/* SELLO */}
 
                     <div
                       className="absolute inset-0 rounded-full"
@@ -734,19 +752,17 @@ export default function Portada() {
                         background: envelopeTheme.seal,
                         boxShadow: `
                           inset 0 4px 10px rgba(255,255,255,0.7),
-                          inset 0 -12px 20px rgba(57,31,0,0.5),
-                          0 18px 34px rgba(20,0,8,0.5)
+                          inset 0 -12px 20px rgba(80,50,15,0.4),
+                          0 18px 34px rgba(45,20,31,0.45)
                         `,
                       }}
                     />
-
-                    {/* BORDE DEL SELLO */}
 
                     <div
                       className="
                         absolute inset-[6px]
                         rounded-full
-                        border border-[#5b3b00]/30
+                        border border-[#6D4B1D]/30
                       "
                     />
 
@@ -754,25 +770,23 @@ export default function Portada() {
                       className="
                         absolute inset-[10px]
                         rounded-full
-                        border border-white/25
+                        border border-white/30
                       "
                     />
-
-                    {/* INICIAL */}
 
                     <span
                       className="
                         relative z-10
                         font-serif
                         text-[27px]
+                        text-[#694900]
                         sm:text-[37px]
                       "
                       style={{
-                        color: "#694900",
                         textShadow: `
                           1px 1px 0 rgba(255,255,255,0.5),
-                          -1px -1px 0 rgba(73,42,0,0.5),
-                          0 4px 7px rgba(44,23,0,0.35)
+                          -1px -1px 0 rgba(73,42,0,0.4),
+                          0 4px 7px rgba(44,23,0,0.3)
                         `,
                       }}
                     >
@@ -781,14 +795,13 @@ export default function Portada() {
                   </div>
                 </motion.div>
 
-                {/* TEXTO ABRIR */}
-
                 <motion.div
                   className="
                     pointer-events-none
                     absolute inset-0 z-40
                     flex items-start justify-center
-                    pt-4 sm:pt-6
+                    pt-4
+                    sm:pt-6
                   "
                   animate={
                     abrirSobre
@@ -798,10 +811,9 @@ export default function Portada() {
                 >
                   <p
                     className="
-                      text-[8px] font-light
-                      uppercase
+                      text-[8px] font-light uppercase
                       tracking-[0.28em]
-                      text-white/80
+                      text-white/85
                       sm:text-[10px] sm:tracking-[0.42em]
                     "
                   >
@@ -810,9 +822,9 @@ export default function Portada() {
                 </motion.div>
               </motion.button>
 
-              {/* =========================================
+              {/* =================================================
                   PASES
-              ========================================= */}
+              ================================================= */}
 
               <motion.div
                 className="
@@ -829,10 +841,9 @@ export default function Portada() {
               >
                 <div
                   className="
-                    mb-4 h-px w-20
+                    mb-4 h-px w-24
                     bg-gradient-to-r
-                    from-transparent via-[#d7b568] to-transparent
-                    sm:mb-5 sm:w-28
+                    from-transparent via-[#EBD5A5] to-transparent
                   "
                 />
 
@@ -840,49 +851,35 @@ export default function Portada() {
                   className="
                     text-[9px] uppercase
                     tracking-[0.32em]
+                    text-[#F8E9E8]
                     sm:text-[11px] sm:tracking-[0.48em]
                   "
-                  style={{
-                    color: "#ead9c4",
-                  }}
                 >
-                  {textoReservado}
+                  HEMOS RESERVADO
                 </p>
-
-                {/* NÚMERO DE PASES */}
 
                 <div className="relative my-2.5 sm:my-3">
                   <div
                     className="
                       absolute inset-0
                       scale-150 rounded-full
-                      bg-[#dab968]/20 blur-2xl
+                      bg-[#EBD5A5]/20 blur-2xl
                     "
                   />
 
                   <span
                     className="
                       relative
-                      font-light
-                      text-[48px]
+                      font-serif
+                      text-[50px]
                       leading-none
-                      sm:text-[60px]
-                      md:text-[68px]
+                      text-[#FFF9F5]
+                      sm:text-[62px]
+                      md:text-[70px]
                     "
                     style={{
-                      background: `
-                        linear-gradient(
-                          180deg,
-                          #ffffff 0%,
-                          #fff1d0 30%,
-                          #ddbd6d 62%,
-                          #9e7421 100%
-                        )
-                      `,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      filter:
-                        "drop-shadow(0 7px 15px rgba(15,0,5,0.25))",
+                      textShadow:
+                        "0 7px 18px rgba(45,20,31,0.32)",
                     }}
                   >
                     {pases}
@@ -895,11 +892,9 @@ export default function Portada() {
                     text-center
                     text-[9px] uppercase
                     tracking-[0.26em]
+                    text-[#F8E9E8]
                     sm:text-[11px] sm:tracking-[0.4em]
                   "
-                  style={{
-                    color: "#e8d4da",
-                  }}
                 >
                   {textoLugares} EN TU HONOR
                 </p>
@@ -908,12 +903,10 @@ export default function Portada() {
                   className="
                     my-4 h-px w-16
                     bg-gradient-to-r
-                    from-transparent via-[#d7b568]/80 to-transparent
+                    from-transparent via-[#EBD5A5]/80 to-transparent
                     sm:my-5
                   "
                 />
-
-                {/* NOMBRE DEL INVITADO */}
 
                 <div
                   className="
@@ -925,11 +918,11 @@ export default function Portada() {
                     sm:px-6 sm:py-3
                   "
                   style={{
-                    background: "rgba(255,255,255,0.09)",
-                    borderColor: "rgba(255,235,240,0.2)",
+                    background: "rgba(255,249,245,0.12)",
+                    borderColor: "rgba(255,240,238,0.25)",
                     boxShadow: `
-                      0 10px 28px rgba(15,0,6,0.18),
-                      inset 0 1px 0 rgba(255,255,255,0.13)
+                      0 10px 28px rgba(45,20,31,0.2),
+                      inset 0 1px 0 rgba(255,255,255,0.16)
                     `,
                   }}
                 >
@@ -939,19 +932,12 @@ export default function Portada() {
                       text-center
                       text-[10px]
                       tracking-[0.08em]
+                      text-[#F8E9E8]
                       sm:text-[12px] sm:tracking-[0.14em]
                     "
-                    style={{
-                      color: "#eadce0",
-                    }}
                   >
                     Invitación para:
-                    <span
-                      className="ml-2 font-semibold"
-                      style={{
-                        color: "#ffffff",
-                      }}
-                    >
+                    <span className="ml-2 font-semibold text-white">
                       {invitado}
                     </span>
                   </p>
@@ -972,88 +958,56 @@ export default function Portada() {
           min-h-[100svh]
           w-full
           overflow-hidden
-          bg-[#3b0b1c]
+          bg-[#70465A]
         "
       >
-        {/* IMAGEN */}
+        {/* IMAGEN DE ESCRITORIO */}
 
-        {/* ===============================
-      IMAGEN DESKTOP
-================================ */}
+        <motion.img
+          src={DATOS_XV.imagenDesktop}
+          alt="Portada de los XV años de Mia Selene"
+          className="
+            absolute inset-0
+            hidden h-full w-full
+            object-cover object-center
+            md:block
+          "
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={
+            mostrarContenido
+              ? { opacity: 1, scale: 1 }
+              : { opacity: 0, scale: 1.05 }
+          }
+          transition={{
+            opacity: { duration: 1.2 },
+            scale: { duration: 4.5 },
+          }}
+        />
 
-<motion.img
-  src="/portadaHorizontal.png"
-  alt="Portada Desktop"
-  className="
-    hidden
-    md:block
+        {/* IMAGEN MÓVIL */}
 
-    absolute
-    inset-0
+        <motion.img
+          src={DATOS_XV.imagenMobile}
+          alt="Portada móvil de los XV años de Mia Selene"
+          className="
+            absolute inset-0
+            block h-full w-full
+            object-cover object-center
+            md:hidden
+          "
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={
+            mostrarContenido
+              ? { opacity: 1, scale: 1 }
+              : { opacity: 0, scale: 1.05 }
+          }
+          transition={{
+            opacity: { duration: 1.2 },
+            scale: { duration: 4.5 },
+          }}
+        />
 
-    w-full
-    h-full
-
-    object-cover
-    object-center
-  "
-  initial={{ opacity: 0, scale: 1.04 }}
-  animate={
-    mostrarContenido
-      ? {
-          opacity: 1,
-          scale: 1,
-        }
-      : {
-          opacity: 0,
-          scale: 1.04,
-        }
-  }
-  transition={{
-    opacity: { duration: 1.2 },
-    scale: { duration: 4.5 },
-  }}
-/>
-
-{/* ===============================
-      IMAGEN MÓVIL
-================================ */}
-
-<motion.img
-  src="portadavertical.png"
-  alt="Portada Mobile"
-  className="
-    block
-    md:hidden
-
-    absolute
-    inset-0
-
-    w-full
-    h-full
-
-    object-cover
-    object-center
-  "
-  initial={{ opacity: 0, scale: 1.04 }}
-  animate={
-    mostrarContenido
-      ? {
-          opacity: 1,
-          scale: 1,
-        }
-      : {
-          opacity: 0,
-          scale: 1.04,
-        }
-  }
-  transition={{
-    opacity: { duration: 1.2 },
-    scale: { duration: 4.5 },
-  }}
-/>
-
-        {/* OVERLAY GENERAL */}
+        {/* CAPA DE COLOR MALVA */}
 
         <motion.div
           className="absolute inset-0"
@@ -1061,9 +1015,9 @@ export default function Portada() {
             background: `
               linear-gradient(
                 180deg,
-                rgba(37,3,15,0.28) 0%,
-                rgba(55,5,22,0.32) 40%,
-                rgba(25,1,9,0.78) 100%
+                rgba(112,70,90,0.16) 0%,
+                rgba(112,70,90,0.25) 42%,
+                rgba(69,39,53,0.82) 100%
               )
             `,
           }}
@@ -1076,140 +1030,125 @@ export default function Portada() {
           transition={{ duration: 1.2 }}
         />
 
-        {/* DEGRADADO INFERIOR */}
-
         <div
           className="
             pointer-events-none
             absolute inset-x-0 bottom-0
-            h-[55%]
+            h-[58%]
           "
           style={{
             background:
-              "linear-gradient(to top, rgba(31,2,12,0.88), transparent)",
+              "linear-gradient(to top, rgba(69,39,53,0.92), transparent)",
           }}
         />
 
-        {/* CONTENIDO */}
+ {/* CONTENIDO INFERIOR */}
 
-        <motion.div
-          className="
-            relative z-10
-            flex min-h-[100svh]
-            w-full
-            flex-col items-center justify-center
-            px-4 py-16
-            text-center text-white
-            sm:px-8 sm:py-20
-            lg:px-12
-          "
-          initial={{ opacity: 0, y: 24 }}
-          animate={
-            mostrarContenido
-              ? {
-                  opacity: 1,
-                  y: 0,
-                }
-              : {
-                  opacity: 0,
-                  y: 24,
-                }
-          }
-          transition={{
-            duration: 1.1,
-            delay: 0.2,
-          }}
-        >
-          {/* ETIQUETA */}
+<motion.div
+  className="
+    relative z-10
+    flex min-h-[100svh]
+    w-full
+    flex-col items-center justify-end
 
-          <div className="mb-5 flex items-center justify-center gap-3 sm:gap-5">
-            <div
-              className="
-                h-px w-8
-                bg-gradient-to-r
-                from-transparent to-[#e0c27d]
-                sm:w-16
-              "
-            />
+    px-4
+    pb-10
+    pt-28
 
-            <p
-              className="
-                text-[9px] uppercase
-                tracking-[0.3em]
-                text-[#f0e1d0]
-                sm:text-[12px] sm:tracking-[0.5em]
-              "
-            >
-              MIS XV AÑOS
-            </p>
+    text-center text-white
 
-            <div
-              className="
-                h-px w-8
-                bg-gradient-to-l
-                from-transparent to-[#e0c27d]
-                sm:w-16
-              "
-            />
-          </div>
+    sm:px-8
+    sm:pb-14
+    sm:pt-32
 
-          {/* NOMBRE */}
+    md:pb-16
 
-          <h1
-            className="
-              max-w-5xl
-              break-words
-              font-cursiveDancing
-              text-[58px]
-              leading-[0.88]
-              sm:text-[82px]
-              md:text-[105px]
-              lg:text-[126px]
-            "
-            style={{
-              color: "#ffffff",
-              textShadow: `
-                0 3px 8px rgba(38,0,13,0.45),
-                0 15px 38px rgba(20,0,8,0.55)
-              `,
-            }}
-          >
-            {DATOS_XV.nombre}
-          </h1>
+    lg:px-12
+    lg:pb-20
+  "
+  initial={{
+    opacity: 0,
+    y: 24,
+  }}
+  animate={
+    mostrarContenido
+      ? {
+          opacity: 1,
+          y: 0,
+        }
+      : {
+          opacity: 0,
+          y: 24,
+        }
+  }
+  transition={{
+    duration: 1.1,
+    delay: 0.2,
+  }}
+>
+  {/* NOMBRE */}
+
+  <h1
+    className="
+      max-w-5xl
+      break-words
+      font-cursiveDancing
+      text-[62px]
+      leading-[0.88]
+
+      sm:text-[88px]
+      md:text-[110px]
+      lg:text-[132px]
+    "
+    style={{
+      color: colores.crema,
+      textShadow: `
+        0 3px 8px rgba(69,39,53,0.5),
+        0 16px 40px rgba(45,20,31,0.5)
+      `,
+    }}
+  >
+    {DATOS_XV.nombre}
+  </h1>
 
 
+  {/* DIVISOR */}
 
-          {/* DIVISOR */}
+  <div
+    className="
+      my-5 h-px w-28
+      bg-gradient-to-r
+      from-transparent
+      via-[#EBD5A5]
+      to-transparent
 
-          <div
-            className="
-              my-7 h-px w-24
-              bg-gradient-to-r
-              from-transparent via-[#ddbe73] to-transparent
-              sm:my-9 sm:w-36
-            "
-          />
+      sm:my-7
+      sm:w-40
+    "
+  />
 
-          {/* CUENTA REGRESIVA */}
+  {/* CUENTA REGRESIVA */}
 
-          <div className="w-full max-w-4xl">
-            <p
-              className="
-                mb-3
-                text-[9px] uppercase
-                tracking-[0.25em]
-                text-[#f1dce2]
-                sm:text-[11px] sm:tracking-[0.42em]
-              "
-            >
-              Faltan
-            </p>
+  <div className="w-full max-w-4xl">
+    <p
+      className="
+        mb-3
+        text-[9px] uppercase
+        tracking-[0.25em]
+        text-[#F8E9E8]
 
-            <Countdown targetDate={DATOS_XV.fechaCuentaRegresiva} />
+        sm:text-[11px]
+        sm:tracking-[0.42em]
+      "
+    >
+      Faltan
+    </p>
 
-
-          </div>
-        </motion.div>
+    <Countdown
+      targetDate={DATOS_XV.fechaCuentaRegresiva}
+    />
+  </div>
+</motion.div>
       </section>
     </main>
   );

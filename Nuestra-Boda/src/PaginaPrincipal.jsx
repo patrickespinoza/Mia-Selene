@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import Carousel from "./componentes-encabezado/carrusel";
 import { motion, AnimatePresence } from "framer-motion";
 import Itinerario from "./Itinerario";
-import Preguntas from "./Preguntas";
 import Regalos from "./componentes-encabezado/Regalos";
 import Confirmacion from "./componentes-encabezado/Confirmacion";
-import FrasePremium from "./componentes-encabezado/FrasePrincipal";
 import EventoDireccion from "./componentes-encabezado/Ubicacion";
 import DressCodePremium from "./componentes-encabezado/codigovestimenta";
 import LineaDelTiempo from "./componentes-encabezado/lineaTiempo";
 import AlbumCompartido from "./componentes-encabezado/album";
 import FrasePersonalizada from "./componentes-encabezado/FrasePer";
+import Familia from "./componentes-encabezado/Familia";
 
 
 export default function PaginaPrincipal() {
@@ -49,6 +47,8 @@ export default function PaginaPrincipal() {
     <div >
 
 <FrasePersonalizada/>
+
+<Familia/>
 
 <EventoDireccion/>
 

@@ -30,7 +30,6 @@ const fadeUp = {
 
 const DATOS_CONFIRMACION = {
   festejada: "Carla Durán",
-
   fechaLimite: "1 de marzo de 2027",
 
   scriptUrl:
@@ -48,7 +47,6 @@ const Confirmacion = () => {
   const [mensajeInvitado, setMensajeInvitado] = useState("");
   const [asistencia, setAsistencia] = useState("");
   const [invitados, setInvitados] = useState(1);
-
   const [pasesPermitidos, setPasesPermitidos] = useState(1);
 
   const [error, setError] = useState("");
@@ -57,9 +55,6 @@ const Confirmacion = () => {
 
   /* =====================================================
      OBTENER NOMBRE Y PASES DESDE LA URL
-
-     Ejemplo:
-     /?nombre=Familia%20López&pases=4
   ===================================================== */
 
   useEffect(() => {
@@ -89,14 +84,12 @@ const Confirmacion = () => {
   }, []);
 
   /* =====================================================
-     OPCIONES DEL SELECTOR DE INVITADOS
+     OPCIONES DE INVITADOS
   ===================================================== */
 
   const opcionesInvitados = useMemo(() => {
     return Array.from(
-      {
-        length: pasesPermitidos,
-      },
+      { length: pasesPermitidos },
       (_, index) => index + 1
     );
   }, [pasesPermitidos]);
@@ -153,7 +146,6 @@ const Confirmacion = () => {
 
   const enviarConfirmacion = async () => {
     if (loading) return;
-
     if (!validarFormulario()) return;
 
     setError("");
@@ -169,9 +161,7 @@ const Confirmacion = () => {
       asistencia,
 
       invitados:
-        asistencia === "Sí asistiré"
-          ? invitados
-          : 0,
+        asistencia === "Sí asistiré" ? invitados : 0,
 
       mensaje: mensajeInvitado.trim(),
 
@@ -193,11 +183,6 @@ const Confirmacion = () => {
       });
 
       setEnviado(true);
-
-      /*
-       * Conservamos el nombre cuando viene desde la URL,
-       * pero limpiamos los demás campos.
-       */
 
       const params = new URLSearchParams(window.location.search);
       const nombreUrl = params.get("nombre");
@@ -235,124 +220,34 @@ const Confirmacion = () => {
       }}
       className="
         relative
-        flex w-full
+        flex
+        w-full
         items-center
         justify-center
         overflow-hidden
-        px-4 py-20
-        sm:px-6 sm:py-24
-        lg:px-10 lg:py-32
+        bg-[#EAD2D6]
+        px-4
+        py-20
+        sm:px-6
+        sm:py-24
+        lg:px-10
+        lg:py-32
       "
-      style={{
-        background: `
-          radial-gradient(
-            circle at top left,
-            rgba(122,24,56,0.11),
-            transparent 27%
-          ),
-          radial-gradient(
-            circle at bottom right,
-            rgba(213,183,106,0.17),
-            transparent 30%
-          ),
-          linear-gradient(
-            145deg,
-            #fffafa 0%,
-            #f8edef 46%,
-            #ead7dc 100%
-          )
-        `,
-      }}
     >
-      {/* =================================================
-          GLOW VINO
-      ================================================= */}
-
-      <motion.div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute -left-36 -top-40
-          h-[380px] w-[380px]
-          rounded-full
-          bg-[#7A1838]/10
-          blur-3xl
-          sm:h-[500px] sm:w-[500px]
-        "
-        animate={{
-          scale: [1, 1.15, 1],
-          opacity: [0.12, 0.25, 0.12],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* =================================================
-          GLOW DORADO
-      ================================================= */}
-
-      <motion.div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute -bottom-40 -right-36
-          h-[390px] w-[390px]
-          rounded-full
-          bg-[#D5B76A]/16
-          blur-3xl
-          sm:h-[520px] sm:w-[520px]
-        "
-        animate={{
-          scale: [1.08, 1, 1.08],
-          opacity: [0.12, 0.24, 0.12],
-        }}
-        transition={{
-          duration: 9,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* =================================================
-          TEXTURA
-      ================================================= */}
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute inset-0
-          opacity-[0.025]
-        "
-        style={{
-          backgroundImage: `
-            repeating-linear-gradient(
-              45deg,
-              rgba(91,16,43,0.15) 0px,
-              rgba(91,16,43,0.15) 1px,
-              transparent 1px,
-              transparent 7px
-            )
-          `,
-        }}
-      />
-
-      {/* =================================================
-          DESTELLOS
-      ================================================= */}
+      {/* DESTELLOS */}
 
       <motion.span
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute left-[8%] top-[17%]
-          text-lg text-[#D5B76A]/65
+          absolute
+          left-[8%]
+          top-[17%]
+          text-lg
+          text-[#B89058]
         "
         animate={{
-          opacity: [0.25, 1, 0.25],
+          opacity: [0.35, 1, 0.35],
           scale: [0.8, 1.2, 0.8],
           rotate: [0, 35, 0],
         }}
@@ -369,11 +264,14 @@ const Confirmacion = () => {
         aria-hidden="true"
         className="
           pointer-events-none
-          absolute right-[8%] top-[38%]
-          text-sm text-[#7A1838]/45
+          absolute
+          right-[8%]
+          top-[38%]
+          text-sm
+          text-[#70465A]/55
         "
         animate={{
-          opacity: [0.2, 0.85, 0.2],
+          opacity: [0.25, 0.85, 0.25],
           scale: [1, 1.3, 1],
         }}
         transition={{
@@ -391,9 +289,12 @@ const Confirmacion = () => {
 
       <div
         className="
-          relative z-10
+          relative
+          z-10
           mx-auto
-          grid w-full max-w-6xl
+          grid
+          w-full
+          max-w-6xl
           grid-cols-1
           items-center
           gap-10
@@ -402,7 +303,7 @@ const Confirmacion = () => {
         "
       >
         {/* =================================================
-            TEXTO IZQUIERDO
+            TEXTO
         ================================================= */}
 
         <motion.div
@@ -418,7 +319,9 @@ const Confirmacion = () => {
             duration: 1,
             ease: [0.22, 1, 0.36, 1],
           }}
-          viewport={{ once: true }}
+          viewport={{
+            once: true,
+          }}
           className="
             mx-auto
             max-w-xl
@@ -431,7 +334,8 @@ const Confirmacion = () => {
 
           <div
             className="
-              flex items-center
+              flex
+              items-center
               justify-center
               gap-3
               lg:justify-start
@@ -439,9 +343,9 @@ const Confirmacion = () => {
           >
             <div
               className="
-                h-px w-8
-                bg-gradient-to-r
-                from-transparent to-[#D5B76A]
+                h-px
+                w-8
+                bg-[#B89058]
                 lg:w-14
               "
             />
@@ -453,7 +357,7 @@ const Confirmacion = () => {
                 font-semibold
                 uppercase
                 tracking-[0.28em]
-                text-[#7A1838]
+                text-[#70465A]
                 sm:text-[11px]
                 sm:tracking-[0.42em]
               "
@@ -471,9 +375,9 @@ const Confirmacion = () => {
 
             <div
               className="
-                h-px w-8
-                bg-gradient-to-l
-                from-transparent to-[#D5B76A]
+                h-px
+                w-8
+                bg-[#B89058]
                 lg:hidden
               "
             />
@@ -494,30 +398,19 @@ const Confirmacion = () => {
               duration: 0.9,
               delay: 0.1,
             }}
-            viewport={{ once: true }}
+            viewport={{
+              once: true,
+            }}
             className="
               mt-5
               font-cursiveDancing
               text-[48px]
               leading-[0.95]
+              text-[#70465A]
               sm:text-[64px]
               md:text-[76px]
               lg:text-[86px]
             "
-            style={{
-              background: `
-                linear-gradient(
-                  180deg,
-                  #9A3155 0%,
-                  #7A1838 45%,
-                  #4A0E23 100%
-                )
-              `,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              filter:
-                "drop-shadow(0 8px 18px rgba(122,24,56,0.13))",
-            }}
           >
             Confirma tu asistencia
           </motion.h2>
@@ -526,7 +419,8 @@ const Confirmacion = () => {
 
           <div
             className="
-              my-7 flex
+              my-7
+              flex
               items-center
               justify-center
               lg:justify-start
@@ -534,17 +428,19 @@ const Confirmacion = () => {
           >
             <div
               className="
-                h-px w-16
-                bg-gradient-to-r
-                from-transparent via-[#D5B76A] to-[#D5B76A]
-                lg:from-[#D5B76A]
-                lg:to-transparent
+                h-px
+                w-16
+                bg-[#B89058]
                 sm:w-24
               "
             />
 
             <motion.span
-              className="mx-4 text-lg text-[#D5B76A]"
+              className="
+                mx-4
+                text-lg
+                text-[#B89058]
+              "
               animate={{
                 rotate: [0, 8, -8, 0],
                 scale: [1, 1.12, 1],
@@ -560,9 +456,9 @@ const Confirmacion = () => {
 
             <div
               className="
-                h-px w-16
-                bg-gradient-to-l
-                from-transparent via-[#D5B76A] to-[#D5B76A]
+                h-px
+                w-16
+                bg-[#B89058]
                 lg:hidden
                 sm:w-24
               "
@@ -576,14 +472,14 @@ const Confirmacion = () => {
               font-playfair
               text-[15px]
               leading-relaxed
-              text-[#72505D]
+              text-[#725563]
               sm:text-[17px]
               md:text-[18px]
             "
           >
             Tu presencia hará que esta celebración sea todavía más
-            especial. Por favor, confirma si podrás acompañarme en
-            mis XV años.
+            especial. Por favor, confirma si podrás acompañarme en mis
+            XV años.
           </p>
 
           <p
@@ -592,7 +488,7 @@ const Confirmacion = () => {
               font-cursiveDancing
               text-[26px]
               leading-relaxed
-              text-[#7A1838]
+              text-[#70465A]
               sm:text-[31px]
             "
           >
@@ -603,14 +499,16 @@ const Confirmacion = () => {
 
           <div
             className="
-              mx-auto mt-8
+              mx-auto
+              mt-8
               max-w-sm
               rounded-[22px]
-              border border-[#D5B76A]/25
-              bg-white/45
-              px-5 py-5
-              shadow-[0_14px_35px_rgba(84,17,42,0.08)]
-              backdrop-blur-lg
+              border
+              border-[#B89058]/35
+              bg-[#FFF9F5]
+              px-5
+              py-5
+              shadow-[0_14px_35px_rgba(112,70,90,0.10)]
               lg:mx-0
             "
           >
@@ -620,7 +518,7 @@ const Confirmacion = () => {
                 font-semibold
                 uppercase
                 tracking-[0.25em]
-                text-[#9A3155]
+                text-[#70465A]
               "
             >
               Confirma antes del
@@ -631,7 +529,7 @@ const Confirmacion = () => {
                 mt-2
                 font-playfair
                 text-[21px]
-                text-[#511329]
+                text-[#70465A]
                 sm:text-[24px]
               "
             >
@@ -669,64 +567,29 @@ const Confirmacion = () => {
             w-full
             overflow-hidden
             rounded-[30px]
-            border border-white/70
-            bg-white/58
-            px-5 py-10
-            shadow-[0_26px_70px_rgba(84,17,42,0.15)]
-            backdrop-blur-xl
+            border
+            border-[#B89058]/35
+            bg-[#FFF9F5]
+            px-5
+            py-10
+            shadow-[0_26px_70px_rgba(112,70,90,0.16)]
             sm:rounded-[38px]
-            sm:px-8 sm:py-12
+            sm:px-8
+            sm:py-12
             md:px-10
           "
         >
-          {/* GLOW INTERIOR */}
-
-          <div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute inset-0
-              bg-gradient-to-br
-              from-white/90
-              via-transparent
-              to-[#7A1838]/7
-            "
-          />
-
-          {/* BRILLO ANIMADO */}
-
-          <motion.div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute top-0
-              h-full w-32
-              -skew-x-12
-              bg-gradient-to-r
-              from-transparent
-              via-white/35
-              to-transparent
-            "
-            animate={{
-              left: ["-45%", "140%"],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              repeatDelay: 3,
-              ease: "easeInOut",
-            }}
-          />
-
           {/* BORDE INTERIOR */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-              absolute inset-[8px]
+              absolute
+              inset-[8px]
               rounded-[22px]
-              border border-white/45
+              border
+              border-[#D4B476]/25
               sm:inset-[11px]
               sm:rounded-[29px]
             "
@@ -739,13 +602,17 @@ const Confirmacion = () => {
               <motion.div
                 className="
                   mx-auto
-                  flex h-16 w-16
-                  items-center justify-center
+                  flex
+                  h-16
+                  w-16
+                  items-center
+                  justify-center
                   rounded-full
-                  border border-[#D5B76A]/35
-                  bg-white/70
+                  border
+                  border-[#B89058]/35
+                  bg-[#EAD2D6]
                   text-3xl
-                  shadow-[0_12px_30px_rgba(84,17,42,0.10)]
+                  shadow-[0_12px_30px_rgba(112,70,90,0.10)]
                 "
                 animate={{
                   y: [0, -3, 0],
@@ -765,7 +632,7 @@ const Confirmacion = () => {
                   font-playfair
                   text-[26px]
                   font-semibold
-                  text-[#511329]
+                  text-[#70465A]
                   sm:text-[32px]
                 "
               >
@@ -774,11 +641,12 @@ const Confirmacion = () => {
 
               <p
                 className="
-                  mx-auto mt-2
+                  mx-auto
+                  mt-2
                   max-w-md
                   text-sm
                   leading-relaxed
-                  text-[#866572]
+                  text-[#725563]
                   sm:text-[15px]
                 "
               >
@@ -787,20 +655,19 @@ const Confirmacion = () => {
               </p>
             </div>
 
-            {/* =================================================
-                NOMBRE
-            ================================================= */}
+            {/* NOMBRE */}
 
             <div className="mt-8">
               <label
                 htmlFor="nombre-invitado"
                 className="
-                  mb-2 block
+                  mb-2
+                  block
                   text-[10px]
                   font-semibold
                   uppercase
                   tracking-[0.2em]
-                  text-[#7A1838]
+                  text-[#70465A]
                 "
               >
                 Nombre completo
@@ -821,18 +688,20 @@ const Confirmacion = () => {
                   min-h-[50px]
                   w-full
                   rounded-2xl
-                  border border-[#D5B76A]/25
-                  bg-white/75
-                  px-4 py-3
+                  border
+                  border-[#B89058]/30
+                  bg-white
+                  px-4
+                  py-3
                   font-playfair
                   text-[15px]
-                  text-[#40202B]
+                  text-[#452735]
                   outline-none
                   transition
                   placeholder:text-[#A98D98]
-                  focus:border-[#7A1838]/45
+                  focus:border-[#70465A]
                   focus:ring-2
-                  focus:ring-[#7A1838]/10
+                  focus:ring-[#70465A]/10
                   disabled:cursor-not-allowed
                   disabled:opacity-65
                   sm:px-5
@@ -841,9 +710,7 @@ const Confirmacion = () => {
               />
             </div>
 
-            {/* =================================================
-                ASISTENCIA
-            ================================================= */}
+            {/* ASISTENCIA */}
 
             <fieldset className="mt-7">
               <legend
@@ -853,7 +720,7 @@ const Confirmacion = () => {
                   font-semibold
                   uppercase
                   tracking-[0.2em]
-                  text-[#7A1838]
+                  text-[#70465A]
                 "
               >
                 ¿Podrás acompañarme?
@@ -861,29 +728,40 @@ const Confirmacion = () => {
 
               <div
                 className="
-                  grid grid-cols-1
+                  grid
+                  grid-cols-1
                   gap-3
                   sm:grid-cols-2
                 "
               >
-                {/* SÍ ASISTIRÉ */}
-
                 <label
                   className={`
                     relative
-                    flex min-h-[62px]
+                    flex
+                    min-h-[62px]
                     cursor-pointer
                     items-center
                     gap-3
                     rounded-2xl
                     border
-                    px-4 py-3
+                    px-4
+                    py-3
                     transition-all
+
                     ${
                       asistencia === "Sí asistiré"
-                        ? "border-[#7A1838] bg-[#7A1838]/8 shadow-[0_10px_25px_rgba(84,17,42,0.08)]"
-                        : "border-[#D5B76A]/25 bg-white/65 hover:border-[#7A1838]/25"
+                        ? `
+                          border-[#70465A]
+                          bg-[#EAD2D6]
+                          shadow-[0_10px_25px_rgba(112,70,90,0.10)]
+                        `
+                        : `
+                          border-[#B89058]/30
+                          bg-white
+                          hover:border-[#70465A]/40
+                        `
                     }
+
                     ${
                       loading
                         ? "pointer-events-none opacity-65"
@@ -893,17 +771,20 @@ const Confirmacion = () => {
                 >
                   <span
                     className={`
-                      flex h-6 w-6
+                      flex
+                      h-6
+                      w-6
                       flex-shrink-0
                       items-center
                       justify-center
                       rounded-full
                       border-2
                       transition
+
                       ${
                         asistencia === "Sí asistiré"
-                          ? "border-[#7A1838]"
-                          : "border-[#BDA7AF]"
+                          ? "border-[#70465A]"
+                          : "border-[#D7A7AE]"
                       }
                     `}
                   >
@@ -916,9 +797,10 @@ const Confirmacion = () => {
                           scale: 1,
                         }}
                         className="
-                          h-3 w-3
+                          h-3
+                          w-3
                           rounded-full
-                          bg-[#7A1838]
+                          bg-[#70465A]
                         "
                       />
                     )}
@@ -928,7 +810,7 @@ const Confirmacion = () => {
                     className="
                       text-sm
                       font-medium
-                      text-[#5C3946]
+                      text-[#70465A]
                       sm:text-[15px]
                     "
                   >
@@ -948,24 +830,34 @@ const Confirmacion = () => {
                   />
                 </label>
 
-                {/* NO PODRÉ ASISTIR */}
-
                 <label
                   className={`
                     relative
-                    flex min-h-[62px]
+                    flex
+                    min-h-[62px]
                     cursor-pointer
                     items-center
                     gap-3
                     rounded-2xl
                     border
-                    px-4 py-3
+                    px-4
+                    py-3
                     transition-all
+
                     ${
                       asistencia === "No podré asistir"
-                        ? "border-[#7A1838] bg-[#7A1838]/8 shadow-[0_10px_25px_rgba(84,17,42,0.08)]"
-                        : "border-[#D5B76A]/25 bg-white/65 hover:border-[#7A1838]/25"
+                        ? `
+                          border-[#70465A]
+                          bg-[#EAD2D6]
+                          shadow-[0_10px_25px_rgba(112,70,90,0.10)]
+                        `
+                        : `
+                          border-[#B89058]/30
+                          bg-white
+                          hover:border-[#70465A]/40
+                        `
                     }
+
                     ${
                       loading
                         ? "pointer-events-none opacity-65"
@@ -975,17 +867,20 @@ const Confirmacion = () => {
                 >
                   <span
                     className={`
-                      flex h-6 w-6
+                      flex
+                      h-6
+                      w-6
                       flex-shrink-0
                       items-center
                       justify-center
                       rounded-full
                       border-2
                       transition
+
                       ${
                         asistencia === "No podré asistir"
-                          ? "border-[#7A1838]"
-                          : "border-[#BDA7AF]"
+                          ? "border-[#70465A]"
+                          : "border-[#D7A7AE]"
                       }
                     `}
                   >
@@ -998,9 +893,10 @@ const Confirmacion = () => {
                           scale: 1,
                         }}
                         className="
-                          h-3 w-3
+                          h-3
+                          w-3
                           rounded-full
-                          bg-[#7A1838]
+                          bg-[#70465A]
                         "
                       />
                     )}
@@ -1010,7 +906,7 @@ const Confirmacion = () => {
                     className="
                       text-sm
                       font-medium
-                      text-[#5C3946]
+                      text-[#70465A]
                       sm:text-[15px]
                     "
                   >
@@ -1021,14 +917,10 @@ const Confirmacion = () => {
                     type="radio"
                     name="asistencia"
                     value="No podré asistir"
-                    checked={
-                      asistencia === "No podré asistir"
-                    }
+                    checked={asistencia === "No podré asistir"}
                     disabled={loading}
                     onChange={() =>
-                      seleccionarAsistencia(
-                        "No podré asistir"
-                      )
+                      seleccionarAsistencia("No podré asistir")
                     }
                     className="sr-only"
                   />
@@ -1036,9 +928,7 @@ const Confirmacion = () => {
               </div>
             </fieldset>
 
-            {/* =================================================
-                NÚMERO DE ASISTENTES
-            ================================================= */}
+            {/* NÚMERO DE ASISTENTES */}
 
             <AnimatePresence mode="wait">
               {asistencia === "Sí asistiré" && (
@@ -1068,12 +958,13 @@ const Confirmacion = () => {
                     <label
                       htmlFor="numero-invitados"
                       className="
-                        mb-2 block
+                        mb-2
+                        block
                         text-[10px]
                         font-semibold
                         uppercase
                         tracking-[0.2em]
-                        text-[#7A1838]
+                        text-[#70465A]
                       "
                     >
                       Personas que asistirán
@@ -1094,45 +985,47 @@ const Confirmacion = () => {
                           w-full
                           appearance-none
                           rounded-2xl
-                          border border-[#D5B76A]/25
-                          bg-white/75
-                          px-4 py-3
+                          border
+                          border-[#B89058]/30
+                          bg-white
+                          px-4
+                          py-3
                           pr-12
                           text-center
                           font-playfair
                           text-[16px]
-                          text-[#40202B]
+                          text-[#452735]
                           outline-none
                           transition
-                          focus:border-[#7A1838]/45
+                          focus:border-[#70465A]
                           focus:ring-2
-                          focus:ring-[#7A1838]/10
+                          focus:ring-[#70465A]/10
                           disabled:cursor-not-allowed
                           disabled:opacity-65
                         "
                       >
-                        {opcionesInvitados.map(
-                          (cantidad) => (
-                            <option
-                              key={cantidad}
-                              value={cantidad}
-                            >
-                              {cantidad}{" "}
-                              {cantidad === 1
-                                ? "persona"
-                                : "personas"}
-                            </option>
-                          )
-                        )}
+                        {opcionesInvitados.map((cantidad) => (
+                          <option
+                            key={cantidad}
+                            value={cantidad}
+                          >
+                            {cantidad}{" "}
+                            {cantidad === 1
+                              ? "persona"
+                              : "personas"}
+                          </option>
+                        ))}
                       </select>
 
                       <span
                         aria-hidden="true"
                         className="
                           pointer-events-none
-                          absolute right-5 top-1/2
+                          absolute
+                          right-5
+                          top-1/2
                           -translate-y-1/2
-                          text-[#7A1838]
+                          text-[#70465A]
                         "
                       >
                         ▾
@@ -1145,11 +1038,11 @@ const Confirmacion = () => {
                         text-center
                         text-xs
                         leading-relaxed
-                        text-[#9A7884]
+                        text-[#725563]
                       "
                     >
                       Esta invitación tiene{" "}
-                      <strong className="text-[#7A1838]">
+                      <strong className="text-[#70465A]">
                         {pasesPermitidos}{" "}
                         {pasesPermitidos === 1
                           ? "lugar asignado"
@@ -1162,23 +1055,23 @@ const Confirmacion = () => {
               )}
             </AnimatePresence>
 
-            {/* =================================================
-                MENSAJE
-            ================================================= */}
+            {/* MENSAJE */}
 
             <div className="mt-7">
               <label
                 htmlFor="mensaje-invitado"
                 className="
-                  mb-2 block
+                  mb-2
+                  block
                   text-[10px]
                   font-semibold
                   uppercase
                   tracking-[0.2em]
-                  text-[#7A1838]
+                  text-[#70465A]
                 "
               >
                 Mensaje para Carla
+
                 <span
                   className="
                     ml-2
@@ -1206,19 +1099,21 @@ const Confirmacion = () => {
                   w-full
                   resize-none
                   rounded-2xl
-                  border border-[#D5B76A]/25
-                  bg-white/75
-                  px-4 py-4
+                  border
+                  border-[#B89058]/30
+                  bg-white
+                  px-4
+                  py-4
                   font-playfair
                   text-[15px]
                   leading-relaxed
-                  text-[#40202B]
+                  text-[#452735]
                   outline-none
                   transition
                   placeholder:text-[#A98D98]
-                  focus:border-[#7A1838]/45
+                  focus:border-[#70465A]
                   focus:ring-2
-                  focus:ring-[#7A1838]/10
+                  focus:ring-[#70465A]/10
                   disabled:cursor-not-allowed
                   disabled:opacity-65
                   sm:px-5
@@ -1237,16 +1132,9 @@ const Confirmacion = () => {
               </p>
             </div>
 
-            {/* =================================================
-                MENSAJES DE ERROR Y ÉXITO
-            ================================================= */}
+            {/* MENSAJES */}
 
-            <div
-              className="
-                mt-5
-                min-h-[46px]
-              "
-            >
+            <div className="mt-5 min-h-[46px]">
               <AnimatePresence mode="wait">
                 {error && (
                   <motion.div
@@ -1267,9 +1155,11 @@ const Confirmacion = () => {
                     }}
                     className="
                       rounded-2xl
-                      border border-red-200
+                      border
+                      border-red-200
                       bg-red-50
-                      px-4 py-3
+                      px-4
+                      py-3
                       text-center
                       text-sm
                       leading-relaxed
@@ -1299,71 +1189,64 @@ const Confirmacion = () => {
                     }}
                     className="
                       rounded-2xl
-                      border border-[#D5B76A]/35
-                      bg-[#F9F2E3]
-                      px-4 py-3
+                      border
+                      border-[#B89058]/40
+                      bg-[#EAD2D6]
+                      px-4
+                      py-3
                       text-center
                       text-sm
                       leading-relaxed
-                      text-[#6A1735]
+                      text-[#70465A]
                     "
                   >
                     <span className="mr-1">✓</span>
-
                     Tu confirmación fue enviada correctamente.
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* =================================================
-                BOTÓN ENVIAR
-            ================================================= */}
+            {/* BOTÓN ENVIAR */}
 
             <motion.button
               type="button"
               onClick={enviarConfirmacion}
               disabled={loading}
               className={`
-                relative
                 mt-2
                 inline-flex
                 min-h-[52px]
                 w-full
                 items-center
                 justify-center
-                overflow-hidden
                 rounded-full
-                px-7 py-4
+                border
+                border-[#70465A]
+                px-7
+                py-4
                 text-white
+                shadow-[0_16px_34px_rgba(112,70,90,0.25)]
                 outline-none
-                transition
+                transition-colors
                 focus-visible:ring-2
-                focus-visible:ring-[#D5B76A]
+                focus-visible:ring-[#B89058]
                 focus-visible:ring-offset-2
+
                 ${
                   loading
-                    ? "cursor-not-allowed opacity-65"
-                    : "cursor-pointer"
+                    ? `
+                      cursor-not-allowed
+                      bg-[#9B7A89]
+                      opacity-70
+                    `
+                    : `
+                      cursor-pointer
+                      bg-[#70465A]
+                      hover:bg-[#5D394B]
+                    `
                 }
               `}
-              style={{
-                background: loading
-                  ? "linear-gradient(135deg, #987985, #765966)"
-                  : `
-                    linear-gradient(
-                      135deg,
-                      #8D2447 0%,
-                      #6A1735 52%,
-                      #451022 100%
-                    )
-                  `,
-
-                boxShadow: `
-                  0 16px 34px rgba(90,16,43,0.25),
-                  inset 0 1px 0 rgba(255,255,255,0.23)
-                `,
-              }}
               whileHover={
                 loading
                   ? undefined
@@ -1380,31 +1263,10 @@ const Confirmacion = () => {
                     }
               }
             >
-              {!loading && (
-                <motion.span
-                  aria-hidden="true"
-                  className="
-                    absolute top-0
-                    h-full w-[80%]
-                    -skew-x-12
-                    bg-white/20
-                  "
-                  animate={{
-                    left: ["-120%", "150%"],
-                  }}
-                  transition={{
-                    duration: 3.2,
-                    repeat: Infinity,
-                    repeatDelay: 1.3,
-                    ease: "easeInOut",
-                  }}
-                />
-              )}
-
               <span
                 className="
-                  relative z-10
-                  flex items-center
+                  flex
+                  items-center
                   justify-center
                   gap-3
                   text-[10px]
@@ -1419,7 +1281,8 @@ const Confirmacion = () => {
                   <>
                     <span
                       className="
-                        h-5 w-5
+                        h-5
+                        w-5
                         animate-spin
                         rounded-full
                         border-2
@@ -1433,11 +1296,7 @@ const Confirmacion = () => {
                 ) : (
                   <>
                     Enviar confirmación
-
-                    <span
-                      aria-hidden="true"
-                      className="text-base"
-                    >
+                    <span aria-hidden="true" className="text-base">
                       ✦
                     </span>
                   </>
@@ -1449,12 +1308,13 @@ const Confirmacion = () => {
 
             <p
               className="
-                mx-auto mt-5
+                mx-auto
+                mt-5
                 max-w-md
                 text-center
                 text-[11px]
                 leading-relaxed
-                text-[#9A7884]
+                text-[#725563]
               "
             >
               Por favor, envía una sola confirmación por invitación.

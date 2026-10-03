@@ -99,118 +99,41 @@ export default function AlbumCompartido() {
         }}
         className="
           relative
-          flex w-full
+          flex
+          w-full
           items-center
           justify-center
           overflow-hidden
-          px-4 py-20
-          sm:px-6 sm:py-24
-          lg:px-10 lg:py-32
+
+          bg-[#EAD2D6]
+
+          px-4
+          py-20
+
+          sm:px-6
+          sm:py-24
+
+          lg:px-10
+          lg:py-32
         "
-        style={{
-          background: `
-            radial-gradient(
-              circle at top left,
-              rgba(122,24,56,0.11),
-              transparent 26%
-            ),
-            radial-gradient(
-              circle at bottom right,
-              rgba(213,183,106,0.17),
-              transparent 30%
-            ),
-            linear-gradient(
-              145deg,
-              #fffafa 0%,
-              #f8edef 46%,
-              #ead7dc 100%
-            )
-          `,
-        }}
       >
-        {/* GLOW VINO */}
-
-        <motion.div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute -left-36 -top-40
-            h-[380px] w-[380px]
-            rounded-full
-            bg-[#7A1838]/10
-            blur-3xl
-            sm:h-[500px] sm:w-[500px]
-          "
-          animate={{
-            scale: [1, 1.14, 1],
-            opacity: [0.12, 0.25, 0.12],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* GLOW DORADO */}
-
-        <motion.div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute -bottom-40 -right-36
-            h-[390px] w-[390px]
-            rounded-full
-            bg-[#D5B76A]/16
-            blur-3xl
-            sm:h-[520px] sm:w-[520px]
-          "
-          animate={{
-            scale: [1.08, 1, 1.08],
-            opacity: [0.12, 0.24, 0.12],
-          }}
-          transition={{
-            duration: 9,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* TEXTURA */}
-
-        <div
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute inset-0
-            opacity-[0.025]
-          "
-          style={{
-            backgroundImage: `
-              repeating-linear-gradient(
-                45deg,
-                rgba(91,16,43,0.15) 0px,
-                rgba(91,16,43,0.15) 1px,
-                transparent 1px,
-                transparent 7px
-              )
-            `,
-          }}
-        />
-
-        {/* DESTELLOS */}
+        {/* DESTELLO IZQUIERDO */}
 
         <motion.span
           aria-hidden="true"
           className="
             pointer-events-none
-            absolute left-[9%] top-[20%]
-            text-lg text-[#D5B76A]/65
+            absolute
+            left-[7%]
+            top-[18%]
+
+            text-xl
+            text-[#B89058]
           "
           animate={{
-            opacity: [0.25, 1, 0.25],
-            scale: [0.8, 1.2, 0.8],
-            rotate: [0, 30, 0],
+            opacity: [0.35, 1, 0.35],
+            scale: [0.85, 1.2, 0.85],
+            rotate: [0, 25, 0],
           }}
           transition={{
             duration: 4,
@@ -221,16 +144,23 @@ export default function AlbumCompartido() {
           ✦
         </motion.span>
 
+        {/* DESTELLO DERECHO */}
+
         <motion.span
           aria-hidden="true"
           className="
             pointer-events-none
-            absolute right-[10%] top-[35%]
-            text-sm text-[#7A1838]/45
+            absolute
+            bottom-[20%]
+            right-[8%]
+
+            text-lg
+            text-[#70465A]/55
           "
           animate={{
-            opacity: [0.2, 0.85, 0.2],
-            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.9, 0.3],
+            scale: [1, 1.25, 1],
+            rotate: [0, -20, 0],
           }}
           transition={{
             duration: 5,
@@ -253,71 +183,92 @@ export default function AlbumCompartido() {
             duration: 0.35,
           }}
           className="
-            relative z-10
-            w-full max-w-3xl
+            relative
+            z-10
+
+            w-full
+            max-w-3xl
             overflow-hidden
+
             rounded-[30px]
-            border border-white/70
-            bg-white/55
-            px-5 py-12
+            border
+            border-[#B89058]/35
+
+            bg-[#FFF9F5]
+
+            px-5
+            py-12
+
             text-center
-            shadow-[0_26px_70px_rgba(84,17,42,0.14)]
-            backdrop-blur-xl
+
+            shadow-[0_24px_60px_rgba(112,70,90,0.16)]
+
             sm:rounded-[38px]
-            sm:px-10 sm:py-16
+            sm:px-10
+            sm:py-16
+
             md:px-16
           "
         >
-          {/* GLOW INTERIOR */}
+          {/* BORDE INTERIOR */}
 
           <div
             aria-hidden="true"
             className="
               pointer-events-none
-              absolute inset-0
-              bg-gradient-to-br
-              from-white/85
-              via-transparent
-              to-[#7A1838]/8
-            "
-          />
+              absolute
+              inset-[8px]
 
-          {/* BRILLO ANIMADO */}
-
-          <motion.div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute top-0
-              h-full w-32
-              -skew-x-12
-              bg-gradient-to-r
-              from-transparent
-              via-white/35
-              to-transparent
-            "
-            animate={{
-              left: ["-45%", "135%"],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              repeatDelay: 2,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* BORDE INTERNO */}
-
-          <div
-            aria-hidden="true"
-            className="
-              pointer-events-none
-              absolute inset-[8px]
               rounded-[22px]
-              border border-white/45
+              border
+              border-[#D4B476]/30
+
               sm:inset-[11px]
               sm:rounded-[29px]
+            "
+          />
+
+          {/* ESQUINA SUPERIOR */}
+
+          <span
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              left-6
+              top-6
+
+              h-10
+              w-10
+
+              border-l
+              border-t
+              border-[#D4B476]/70
+
+              sm:h-14
+              sm:w-14
+            "
+          />
+
+          {/* ESQUINA INFERIOR */}
+
+          <span
+            aria-hidden="true"
+            className="
+              pointer-events-none
+              absolute
+              bottom-6
+              right-6
+
+              h-10
+              w-10
+
+              border-b
+              border-r
+              border-[#D4B476]/70
+
+              sm:h-14
+              sm:w-14
             "
           />
 
@@ -326,17 +277,20 @@ export default function AlbumCompartido() {
 
             <div
               className="
-                flex items-center
+                flex
+                items-center
                 justify-center
                 gap-3
+
                 sm:gap-5
               "
             >
               <div
                 className="
-                  h-px w-8
-                  bg-gradient-to-r
-                  from-transparent to-[#D5B76A]
+                  h-px
+                  w-8
+                  bg-[#B89058]
+
                   sm:w-16
                 "
               />
@@ -344,11 +298,13 @@ export default function AlbumCompartido() {
               <motion.p
                 className="
                   whitespace-nowrap
+
                   text-[9px]
                   font-semibold
                   uppercase
                   tracking-[0.28em]
-                  text-[#7A1838]
+                  text-[#70465A]
+
                   sm:text-[11px]
                   sm:tracking-[0.42em]
                 "
@@ -366,9 +322,10 @@ export default function AlbumCompartido() {
 
               <div
                 className="
-                  h-px w-8
-                  bg-gradient-to-l
-                  from-transparent to-[#D5B76A]
+                  h-px
+                  w-8
+                  bg-[#B89058]
+
                   sm:w-16
                 "
               />
@@ -378,15 +335,27 @@ export default function AlbumCompartido() {
 
             <motion.div
               className="
-                mx-auto mt-7
-                flex h-16 w-16
-                items-center justify-center
+                mx-auto
+                mt-7
+
+                flex
+                h-16
+                w-16
+                items-center
+                justify-center
+
                 rounded-full
-                border border-[#D5B76A]/35
-                bg-white/65
+                border
+                border-[#B89058]/40
+
+                bg-[#EAD2D6]
+
                 text-3xl
-                shadow-[0_12px_30px_rgba(84,17,42,0.10)]
-                sm:h-20 sm:w-20
+
+                shadow-[0_12px_30px_rgba(112,70,90,0.12)]
+
+                sm:h-20
+                sm:w-20
                 sm:text-4xl
               "
               animate={{
@@ -417,29 +386,20 @@ export default function AlbumCompartido() {
                 duration: 0.9,
                 delay: 0.15,
               }}
-              viewport={{ once: true }}
+              viewport={{
+                once: true,
+              }}
               className="
                 mt-7
+
                 font-cursiveDancing
                 text-[46px]
                 leading-[0.95]
+                text-[#70465A]
+
                 sm:text-[62px]
                 md:text-[76px]
               "
-              style={{
-                background: `
-                  linear-gradient(
-                    180deg,
-                    #9A3155 0%,
-                    #7A1838 45%,
-                    #4A0E23 100%
-                  )
-                `,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter:
-                  "drop-shadow(0 8px 18px rgba(122,24,56,0.13))",
-              }}
             >
               Álbum compartido
             </motion.h2>
@@ -448,8 +408,12 @@ export default function AlbumCompartido() {
 
             <motion.div
               className="
-                my-7 flex
-                items-center justify-center
+                my-7
+
+                flex
+                items-center
+                justify-center
+
                 sm:my-9
               "
               animate={{
@@ -462,11 +426,10 @@ export default function AlbumCompartido() {
               }}
             >
               <motion.div
-                className="h-px"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, rgba(181,143,63,0.8))",
-                }}
+                className="
+                  h-px
+                  bg-[#B89058]
+                "
                 animate={{
                   width: ["45px", "80px", "45px"],
                 }}
@@ -478,7 +441,11 @@ export default function AlbumCompartido() {
               />
 
               <motion.span
-                className="mx-4 text-lg text-[#D5B76A]"
+                className="
+                  mx-4
+                  text-lg
+                  text-[#B89058]
+                "
                 animate={{
                   rotate: [0, 8, -8, 0],
                   scale: [1, 1.12, 1],
@@ -493,11 +460,10 @@ export default function AlbumCompartido() {
               </motion.span>
 
               <motion.div
-                className="h-px"
-                style={{
-                  background:
-                    "linear-gradient(to left, transparent, rgba(181,143,63,0.8))",
-                }}
+                className="
+                  h-px
+                  bg-[#B89058]
+                "
                 animate={{
                   width: ["45px", "80px", "45px"],
                 }}
@@ -524,14 +490,18 @@ export default function AlbumCompartido() {
                 duration: 0.9,
                 delay: 0.25,
               }}
-              viewport={{ once: true }}
+              viewport={{
+                once: true,
+              }}
               className="
                 mx-auto
                 max-w-xl
+
                 font-playfair
                 text-[15px]
                 leading-relaxed
-                text-[#72505D]
+                text-[#725563]
+
                 sm:text-[17px]
                 md:text-[18px]
               "
@@ -554,14 +524,19 @@ export default function AlbumCompartido() {
                 duration: 1,
                 delay: 0.35,
               }}
-              viewport={{ once: true }}
+              viewport={{
+                once: true,
+              }}
               className="
-                mx-auto mt-4
+                mx-auto
+                mt-4
                 max-w-lg
+
                 font-cursiveDancing
                 text-[24px]
                 leading-relaxed
-                text-[#7A1838]
+                text-[#70465A]
+
                 sm:text-[29px]
               "
             >
@@ -574,37 +549,39 @@ export default function AlbumCompartido() {
               type="button"
               onClick={() => setOpen(true)}
               className="
-                relative
                 mt-9
+
                 inline-flex
                 min-h-[50px]
-                w-full max-w-[280px]
+                w-full
+                max-w-[280px]
                 items-center
                 justify-center
-                overflow-hidden
+
                 rounded-full
-                px-7 py-4
+                border
+                border-[#70465A]
+
+                bg-[#70465A]
+
+                px-7
+                py-4
+
                 text-white
+
+                shadow-[0_14px_30px_rgba(112,70,90,0.24)]
+
                 outline-none
+                transition-colors
+
+                hover:bg-[#5D394B]
+
                 focus-visible:ring-2
-                focus-visible:ring-[#D5B76A]
+                focus-visible:ring-[#B89058]
                 focus-visible:ring-offset-2
+
                 sm:mt-11
               "
-              style={{
-                background: `
-                  linear-gradient(
-                    135deg,
-                    #8D2447 0%,
-                    #6A1735 52%,
-                    #451022 100%
-                  )
-                `,
-                boxShadow: `
-                  0 16px 34px rgba(90,16,43,0.25),
-                  inset 0 1px 0 rgba(255,255,255,0.23)
-                `,
-              }}
               whileHover={{
                 scale: 1.045,
                 y: -2,
@@ -613,32 +590,13 @@ export default function AlbumCompartido() {
                 scale: 0.97,
               }}
             >
-              <motion.span
-                aria-hidden="true"
-                className="
-                  absolute top-0
-                  h-full w-[80%]
-                  -skew-x-12
-                  bg-white/20
-                "
-                animate={{
-                  left: ["-120%", "150%"],
-                }}
-                transition={{
-                  duration: 3.2,
-                  repeat: Infinity,
-                  repeatDelay: 1.3,
-                  ease: "easeInOut",
-                }}
-              />
-
               <span
                 className="
-                  relative z-10
                   text-[10px]
                   font-semibold
                   uppercase
                   tracking-[0.22em]
+
                   sm:text-[11px]
                   sm:tracking-[0.3em]
                 "
@@ -648,7 +606,7 @@ export default function AlbumCompartido() {
 
               <span
                 aria-hidden="true"
-                className="relative z-10 ml-2 text-base"
+                className="ml-2 text-base"
               >
                 📸
               </span>
@@ -668,13 +626,20 @@ export default function AlbumCompartido() {
             aria-modal="true"
             aria-labelledby="titulo-album"
             className="
-              fixed inset-0 z-[100]
-              flex items-center
+              fixed
+              inset-0
+              z-[100]
+
+              flex
+              items-center
               justify-center
               overflow-y-auto
-              bg-[#17040b]/75
-              px-4 py-8
-              backdrop-blur-md
+
+              bg-[#452735]/80
+
+              px-4
+              py-8
+
               sm:px-6
             "
             initial={{
@@ -715,53 +680,44 @@ export default function AlbumCompartido() {
               className="
                 relative
                 my-auto
-                w-full max-w-md
+
+                w-full
+                max-w-md
                 overflow-hidden
+
                 rounded-[28px]
-                border border-white/60
-                bg-[#fffafa]
-                px-5 py-9
+                border
+                border-[#B89058]/40
+
+                bg-[#FFF9F5]
+
+                px-5
+                py-9
+
                 text-center
-                shadow-[0_28px_90px_rgba(0,0,0,0.38)]
+
+                shadow-[0_28px_90px_rgba(69,39,53,0.38)]
+
                 sm:rounded-[36px]
-                sm:px-8 sm:py-11
+                sm:px-8
+                sm:py-11
               "
             >
-              {/* GLOW INTERIOR */}
+              {/* BORDE INTERIOR */}
 
               <div
                 aria-hidden="true"
                 className="
                   pointer-events-none
-                  absolute inset-0
-                  bg-gradient-to-br
-                  from-white
-                  via-transparent
-                  to-[#7A1838]/10
-                "
-              />
+                  absolute
+                  inset-2
 
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute -right-20 -top-20
-                  h-56 w-56
-                  rounded-full
-                  bg-[#D5B76A]/17
-                  blur-3xl
-                "
-              />
+                  rounded-[21px]
+                  border
+                  border-[#D4B476]/25
 
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute -bottom-24 -left-20
-                  h-56 w-56
-                  rounded-full
-                  bg-[#7A1838]/10
-                  blur-3xl
+                  sm:inset-3
+                  sm:rounded-[28px]
                 "
               />
 
@@ -772,19 +728,34 @@ export default function AlbumCompartido() {
                 onClick={() => setOpen(false)}
                 aria-label="Cerrar álbum compartido"
                 className="
-                  absolute right-4 top-4 z-20
-                  flex h-10 w-10
-                  items-center justify-center
+                  absolute
+                  right-4
+                  top-4
+                  z-20
+
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+
                   rounded-full
-                  border border-[#7A1838]/10
-                  bg-white/75
-                  text-lg text-[#7A1838]
+                  border
+                  border-[#70465A]/20
+
+                  bg-[#EAD2D6]
+
+                  text-lg
+                  text-[#70465A]
+
                   shadow-sm
-                  backdrop-blur-md
                   transition-colors
-                  hover:bg-[#7A1838]
+
+                  hover:bg-[#70465A]
                   hover:text-white
-                  sm:right-5 sm:top-5
+
+                  sm:right-5
+                  sm:top-5
                 "
                 whileHover={{
                   rotate: 90,
@@ -803,13 +774,22 @@ export default function AlbumCompartido() {
                 <motion.div
                   className="
                     mx-auto
-                    flex h-16 w-16
-                    items-center justify-center
+
+                    flex
+                    h-16
+                    w-16
+                    items-center
+                    justify-center
+
                     rounded-full
-                    border border-[#D5B76A]/35
-                    bg-white
+                    border
+                    border-[#B89058]/40
+
+                    bg-[#EAD2D6]
+
                     text-3xl
-                    shadow-[0_12px_30px_rgba(84,17,42,0.10)]
+
+                    shadow-[0_12px_30px_rgba(112,70,90,0.12)]
                   "
                   animate={{
                     y: [0, -3, 0],
@@ -829,10 +809,12 @@ export default function AlbumCompartido() {
                   id="titulo-album"
                   className="
                     mt-5
+
                     font-cursiveDancing
                     text-[40px]
                     leading-none
-                    text-[#7A1838]
+                    text-[#70465A]
+
                     sm:text-[48px]
                   "
                 >
@@ -843,12 +825,13 @@ export default function AlbumCompartido() {
 
                 <div
                   className="
-                    mx-auto my-6
-                    h-px w-28
-                    bg-gradient-to-r
-                    from-transparent
-                    via-[#D5B76A]
-                    to-transparent
+                    mx-auto
+                    my-6
+
+                    h-px
+                    w-28
+
+                    bg-[#B89058]
                   "
                 />
 
@@ -858,7 +841,7 @@ export default function AlbumCompartido() {
                   className="
                     text-sm
                     leading-relaxed
-                    text-[#80616C]
+                    text-[#725563]
                   "
                 >
                   Descarga la aplicación
@@ -867,10 +850,11 @@ export default function AlbumCompartido() {
                 <p
                   className="
                     mt-1
+
                     font-playfair
                     text-[23px]
                     font-semibold
-                    text-[#511329]
+                    text-[#70465A]
                   "
                 >
                   {DATOS_ALBUM.nombreAplicacion}
@@ -884,20 +868,28 @@ export default function AlbumCompartido() {
                   rel="noopener noreferrer"
                   className="
                     mt-5
+
                     inline-flex
                     min-h-[44px]
                     items-center
                     justify-center
+
                     rounded-full
-                    border border-[#7A1838]
-                    px-6 py-3
+                    border
+                    border-[#70465A]
+
+                    px-6
+                    py-3
+
                     text-[10px]
                     font-semibold
                     uppercase
                     tracking-[0.2em]
-                    text-[#7A1838]
+                    text-[#70465A]
+
                     transition-colors
-                    hover:bg-[#7A1838]
+
+                    hover:bg-[#70465A]
                     hover:text-white
                   "
                   whileHover={{
@@ -920,7 +912,7 @@ export default function AlbumCompartido() {
                       font-semibold
                       uppercase
                       tracking-[0.24em]
-                      text-[#9A7884]
+                      text-[#725563]
                     "
                   >
                     Código del álbum
@@ -930,27 +922,38 @@ export default function AlbumCompartido() {
                     type="button"
                     onClick={copiarCodigo}
                     className="
-                      group relative
-                      mt-3 w-full
+                      group
+                      relative
+
+                      mt-3
+                      w-full
                       overflow-hidden
+
                       rounded-2xl
-                      border border-[#D5B76A]/25
-                      bg-white/75
-                      px-4 py-4
-                      shadow-inner
-                      transition
-                      hover:border-[#7A1838]/25
+                      border
+                      border-[#B89058]/35
+
+                      bg-[#EAD2D6]
+
+                      px-4
+                      py-4
+
+                      transition-colors
+
+                      hover:border-[#70465A]/40
                     "
                   >
                     <span
                       className="
                         block
                         break-all
+
                         font-mono
                         text-[17px]
                         font-semibold
                         tracking-[0.18em]
-                        text-[#7A1838]
+                        text-[#70465A]
+
                         sm:text-lg
                         sm:tracking-[0.28em]
                       "
@@ -960,11 +963,13 @@ export default function AlbumCompartido() {
 
                     <span
                       className="
-                        mt-2 block
+                        mt-2
+                        block
+
                         text-[9px]
                         uppercase
                         tracking-[0.18em]
-                        text-[#9A7884]
+                        text-[#725563]
                       "
                     >
                       {copiado
@@ -980,20 +985,28 @@ export default function AlbumCompartido() {
                   <div
                     className="
                       rounded-[22px]
-                      border border-[#D5B76A]/25
+                      border
+                      border-[#B89058]/35
+
                       bg-white
+
                       p-3
-                      shadow-[0_14px_35px_rgba(84,17,42,0.12)]
+
+                      shadow-[0_14px_35px_rgba(112,70,90,0.12)]
                     "
                   >
                     <img
                       src={DATOS_ALBUM.imagenQr}
                       alt="Código QR para acceder al álbum compartido"
                       className="
-                        h-40 w-40
+                        h-40
+                        w-40
+
                         rounded-xl
                         object-contain
-                        sm:h-44 sm:w-44
+
+                        sm:h-44
+                        sm:w-44
                       "
                     />
                   </div>
@@ -1003,11 +1016,13 @@ export default function AlbumCompartido() {
 
                 <p
                   className="
-                    mx-auto mt-6
+                    mx-auto
+                    mt-6
                     max-w-xs
+
                     text-xs
                     leading-relaxed
-                    text-[#9A7884]
+                    text-[#725563]
                   "
                 >
                   Escanea el código QR o utiliza el código del álbum
@@ -1017,9 +1032,10 @@ export default function AlbumCompartido() {
                 <p
                   className="
                     mt-4
+
                     font-cursiveDancing
                     text-[23px]
-                    text-[#7A1838]
+                    text-[#70465A]
                   "
                 >
                   Gracias por compartir este recuerdo conmigo
