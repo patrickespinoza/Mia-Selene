@@ -34,7 +34,7 @@ const DATOS_XV = {
 
 
 
-  cancion: "/musica.mp3",
+  cancion: "/musica1.mp3",
 
 };
 
