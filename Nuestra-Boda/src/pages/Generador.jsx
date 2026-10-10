@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-const CLAVE_INVITACION = "MIA-SELENE-30-OCTUBRE-2026";
+const CLAVE_INVITACION = "MIA-SELENE-11-DICIEMBRE-2026";
 
 const colores = {
   rosaClaro: "#F8E9E8",
@@ -234,7 +234,7 @@ export default function Generador() {
         </div>
 
         <div className="mx-auto mt-9 h-px w-24 bg-gradient-to-r from-transparent via-[#C7A56A] to-transparent" />
-        <p className="mt-4 text-center text-[8px] uppercase tracking-[.30em] text-[#A56F85]">30 • Octubre • 2026</p>
+        <p className="mt-4 text-center text-[8px] uppercase tracking-[.30em] text-[#A56F85]">11 • Diciembre • 2026</p>
       </div>
     </main>
   );
