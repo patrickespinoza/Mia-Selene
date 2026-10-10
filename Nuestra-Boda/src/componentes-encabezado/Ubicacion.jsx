@@ -8,12 +8,12 @@ import { motion } from "framer-motion";
 
 const DATOS_EVENTO = {
   diaSemana: "Viernes",
-  dia: "30",
-  mes: "Octubre",
+  dia: "11",
+  mes: "Diciembre",
   anio: "2026",
 
   // Cambia este texto cuando tengas la hora definitiva
-  hora: "Por confirmar",
+  hora: "7:30 pm",
 
   ubicacion:
     "https://maps.app.goo.gl/tYqGiXWF39RrR7WB9",

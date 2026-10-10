@@ -18,7 +18,7 @@ const eventos = [
     icono: "✧",
   },
   {
-    hora: "9:030 PM",
+    hora: "9:30 PM",
     titulo: "Baile",
     icono: "❦",
   },

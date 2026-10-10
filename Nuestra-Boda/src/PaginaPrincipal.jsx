@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Itinerario from "./Itinerario";
 import Regalos from "./componentes-encabezado/Regalos";
-import Confirmacion from "./componentes-encabezado/Confirmacion";
 import EventoDireccion from "./componentes-encabezado/Ubicacion";
 import DressCodePremium from "./componentes-encabezado/codigovestimenta";
 import LineaDelTiempo from "./componentes-encabezado/lineaTiempo";
@@ -54,16 +53,14 @@ export default function PaginaPrincipal() {
 
  <LineaDelTiempo/>
 
+ <DressCodePremium/>
+
 <Itinerario />
  
-
 <AlbumCompartido/>
-     
 
 <Regalos/>
   
-  
-<Confirmacion/>
   
 
       </div>      

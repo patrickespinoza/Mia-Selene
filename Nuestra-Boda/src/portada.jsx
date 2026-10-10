@@ -22,9 +22,9 @@ const DATOS_XV = {
 
   inicial: "M",
 
-  fechaTexto: "30 • Octubre • 2026",
+  fechaTexto: "11 • Diciembre • 2026",
 
-  fechaCuentaRegresiva: "2026-10-30T17:00:00-06:00",
+  fechaCuentaRegresiva: "2026-12-11T17:00:00-06:00",
 
 
 
@@ -294,7 +294,7 @@ const RamaDecorativa = ({ posicion }) => {
    DESCIFRAR INVITACIÓN DESDE ?i=
 ===================================================== */
 
-const CLAVE_INVITACION = "MIA-SELENE-30-OCTUBRE-2026";
+const CLAVE_INVITACION = "MIA-SELENE-11-DICIEMBRE-2026";
 
 const base64UrlABytes = (valor) => {
   let base64 = valor.replace(/-/g, "+").replace(/_/g, "/");
