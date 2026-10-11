@@ -30,10 +30,10 @@ const fadeUp = {
 
 const DATOS_ALBUM = {
   nombreAplicacion: "Wedshoots",
-  codigo: "MXat19tb26",
+  codigo: "MXea54f7d7",
   enlaceAplicacion:
     "https://apps.apple.com/mx/app/wedshoots/id660256196",
-  imagenQr: "/qr.png",
+  imagenQr: "/qr.jpg",
 };
 
 /* =====================================================
